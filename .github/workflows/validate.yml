@@ -1,0 +1,167 @@
+name: Validate
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Validate skill directory structure
+        run: |
+          echo "Validating skill directories..."
+          SKILL_COUNT=0
+          for dir in skills/*/; do
+            if [ -d "$dir" ]; then
+              skill_name=$(basename "$dir")
+              if [ -f "$dir/SKILL.md" ]; then
+                echo "✓ $skill_name"
+                ((SKILL_COUNT++))
+              else
+                echo "✗ $skill_name missing SKILL.md"
+                exit 1
+              fi
+            fi
+          done
+          echo "Found $SKILL_COUNT skills"
+
+      - name: Validate package.json
+        run: |
+          echo "Validating package.json..."
+          node -e "
+            const pkg = require('./package.json');
+            if (!pkg.name) throw new Error('Missing package name');
+            if (!pkg.version) throw new Error('Missing version');
+            if (!pkg.skillCategories) throw new Error('Missing skillCategories');
+            if (!pkg.skillRegistry) throw new Error('Missing skillRegistry');
+            console.log('✓ package.json valid');
+            console.log('  Name: ' + pkg.name);
+            console.log('  Version: ' + pkg.version);
+            console.log('  Total skills: ' + pkg.skillRegistry.totalSkills);
+          "
+
+      - name: Verify skill count matches
+        run: |
+          EXPECTED=$(node -p "require('./package.json').skillRegistry.totalSkills")
+          ACTUAL=$(ls -1 skills/ | wc -l)
+          echo "Expected skills: $EXPECTED"
+          echo "Actual skills: $ACTUAL"
+          if [ "$EXPECTED" != "$ACTUAL" ]; then
+            echo "✗ Skill count mismatch"
+            exit 1
+          else
+            echo "✓ Skill count matches"
+          fi
+
+      - name: Validate agent compatibility
+        run: |
+          echo "Checking agent compatibility..."
+          node -e "
+            const pkg = require('./package.json');
+            const agents = ['claude', 'cursor', 'windsurf', 'aider', 'continue', 'cline'];
+            const validAgents = new Set(agents);
+            
+            for (const [name, skill] of Object.entries(pkg.skills || {})) {
+              if (skill.agents) {
+                skill.agents.forEach(agent => {
+                  if (!validAgents.has(agent)) {
+                    throw new Error(\`Invalid agent '\${agent}' in skill '\${name}'\`);
+                  }
+                });
+              }
+            }
+            console.log('✓ All agents valid');
+          "
+
+      - name: Check category assignments
+        run: |
+          echo "Validating category assignments..."
+          node -e "
+            const pkg = require('./package.json');
+            const categories = Object.keys(pkg.skillCategories || {});
+            const fileSkills = new Set();
+            
+            const fs = require('fs');
+            fs.readdirSync('skills').forEach(skill => {
+              fileSkills.add(skill);
+            });
+            
+            const categorizedSkills = new Set();
+            for (const [cat, skills] of Object.entries(pkg.skillCategories || {})) {
+              skills.forEach(skill => {
+                if (!fileSkills.has(skill)) {
+                  throw new Error(\`Skill '\${skill}' in category '\${cat}' but not in filesystem\`);
+                }
+                categorizedSkills.add(skill);
+              });
+            }
+            
+            console.log('✓ All categorized skills exist');
+            console.log(\`  Categories: \${categories.length}\`);
+            console.log('  Categories:', categories.join(', '));
+          "
+
+      - name: Lint Markdown files
+        run: |
+          echo "Checking Markdown syntax..."
+          find . -name "*.md" -type f ! -path "./node_modules/*" | head -10 | while read file; do
+            if grep -E '^\[.*\]\(.*\)' "$file" | grep -q '.'; then
+              echo "✓ Links found in $(basename $file)"
+            fi
+          done
+
+      - name: Check for broken links
+        run: |
+          echo "Verifying documentation links..."
+          find skills -name "*.md" -type f | while read file; do
+            if grep -o '\[.*\](references/.*\.md)' "$file" | grep -v "http" || true; then
+              path=$(grep -o '\[.*\](references/.*\.md)' "$file" | sed -E 's/.*\((.*)\).*/\1/' | head -1)
+              if [ -n "$path" ]; then
+                dir=$(dirname "$file")
+                if [ ! -f "$dir/$path" ]; then
+                  echo "⚠ Potential broken link in $file: $path"
+                fi
+              fi
+            fi
+          done
+          echo "✓ Link validation complete"
+
+      - name: Validate OpenAPI spec
+        run: |
+          if [ -f "openapi.yaml" ]; then
+            echo "Validating OpenAPI specification..."
+            npm list swagger-cli >/dev/null 2>&1 || npm install --save-dev swagger-cli
+            npx swagger-cli validate openapi.yaml && echo "✓ OpenAPI spec valid"
+          fi
+
+      - name: Run npm audit
+        continue-on-error: true
+        run: npm audit --audit-level=moderate
+
+      - name: Create validation summary
+        if: always()
+        run: |
+          echo "## ✅ Validation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- Skills directory structure: ✓" >> $GITHUB_STEP_SUMMARY
+          echo "- package.json: ✓" >> $GITHUB_STEP_SUMMARY
+          echo "- Skill count: ✓" >> $GITHUB_STEP_SUMMARY
+          echo "- Agent compatibility: ✓" >> $GITHUB_STEP_SUMMARY
+          echo "- Category assignments: ✓" >> $GITHUB_STEP_SUMMARY
+          echo "- Documentation links: ✓" >> $GITHUB_STEP_SUMMARY

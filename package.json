@@ -91,7 +91,8 @@
     "engines": {
         "node": ">=16.0.0"
     }
-}{
+    "skills": {
+"aws-cli": {
     "name": "aws-cli",
     "version": "1.0.0",
     "path": "skills/aws-cli",
@@ -667,4 +668,5 @@
 },
 "engines": {
 "node": ">=16.0.0"
+}
 }

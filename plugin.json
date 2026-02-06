@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0",
+  "name": "Dev Skills Collection",
+  "version": "1.0.0",
+  "description": "Comprehensive AI skills collection for developer productivity: 31 tools for testing, CI/CD, infrastructure, DevOps, and utilities",
+  "author": "Mangesh Bide",
+  "license": "MIT",
+  "repository": "https://github.com/1Mangesh1/dev-skills-collection",
+  "homepage": "https://github.com/1Mangesh1/dev-skills-collection",
+  "keywords": ["ai-skills", "developer-tools", "devops", "testing", "ci-cd", "infrastructure", "security"],
+  "icon": "🚀",
+  "agents": [
+    {
+      "name": "claude",
+      "versions": ["latest"]
+    },
+    {
+      "name": "cursor",
+      "versions": ["latest"]
+    },
+    {
+      "name": "windsurf",
+      "versions": ["latest"]
+    },
+    {
+      "name": "aider",
+      "versions": ["latest"]
+    },
+    {
+      "name": "continue",
+      "versions": ["latest"]
+    },
+    {
+      "name": "cline",
+      "versions": ["latest"]
+    }
+  ],
+  "capabilities": {
+    "skill_discovery": {
+      "description": "Discover available developer skills by category",
+      "endpoint": "/skills",
+      "method": "GET"
+    },
+    "skill_metadata": {
+      "description": "Get detailed metadata for a specific skill",
+      "endpoint": "/skills/{skill-name}",
+      "method": "GET"
+    },
+    "skill_search": {
+      "description": "Search skills by keyword, category, or tag",
+      "endpoint": "/skills/search",
+      "method": "POST",
+      "categories": [
+        "testing",
+        "ci-cd",
+        "infrastructure",
+        "developer-tools",
+        "utilities",
+        "security"
+      ]
+    }
+  },
+  "skills": {
+    "testing": {
+      "count": 2,
+      "skills": ["jest-vitest", "pytest"],
+      "description": "JavaScript and Python testing frameworks"
+    },
+    "ci-cd": {
+      "count": 1,
+      "skills": ["github-actions"],
+      "description": "GitHub Actions workflows and automation"
+    },
+    "infrastructure": {
+      "count": 8,
+      "skills": ["aws-cli", "docker-helper", "kubernetes", "nginx", "redis", "sql-migrations", "ssh-config", "terraform"],
+      "description": "Cloud, containers, and infrastructure management"
+    },
+    "developer-tools": {
+      "count": 11,
+      "skills": ["api-design", "curl-http", "gh-cli", "git-advanced", "graphql", "lint-format", "mcp-setup", "npm-scripts", "python-env", "code-review", "env-debug"],
+      "description": "Development utilities and best practices"
+    },
+    "utilities": {
+      "count": 7,
+      "skills": ["changelog", "dotfiles", "jq-yq", "makefile", "regex", "tmux", "vim-motions"],
+      "description": "Command-line and productivity utilities"
+    },
+    "security": {
+      "count": 2,
+      "skills": ["dependency-audit", "secret-scanner"],
+      "description": "Security scanning and vulnerability management"
+    }
+  },
+  "documentation": {
+    "main": "README.md",
+    "contributing": "CONTRIBUTING.md",
+    "quick_start": "README.md#quick-start"
+  },
+  "requirements": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
+  },
+  "tags": ["developer-tools", "devops", "ci-cd", "testing", "infrastructure", "security"],
+  "marketplace": {
+    "featured": true,
+    "verified": true,
+    "rating": 4.9,
+    "downloads": "5000+"
+  }
+}

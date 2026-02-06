@@ -1,0 +1,319 @@
+openapi: 3.1.0
+info:
+  title: Dev Skills Collection API
+  version: 1.0.0
+  description: Discover and access 31+ developer productivity skills
+  contact:
+    name: Mangesh Bide
+    url: 'https://github.com/1Mangesh1'
+  license:
+    name: MIT
+    url: 'https://github.com/1Mangesh1/dev-skills-collection/blob/main/LICENSE'
+
+servers:
+  - url: 'https://api.dev-skills.dev'
+    description: Production API
+  - url: 'http://localhost:3000'
+    description: Development API
+
+tags:
+  - name: Skills Discovery
+    description: Find and browse developer skills
+  - name: Skill Details
+    description: Get detailed skill information
+
+paths:
+  /skills:
+    get:
+      tags:
+        - Skills Discovery
+      summary: List all available skills
+      description: Get list of all 31 developer skills with metadata
+      operationId: listSkills
+      parameters:
+        - name: category
+          in: query
+          description: Filter by skill category
+          schema:
+            type: string
+            enum: [testing, ci-cd, infrastructure, developer-tools, utilities, security]
+        - name: agent
+          in: query
+          description: Filter by agent compatibility
+          schema:
+            type: string
+            enum: [claude, cursor, windsurf, aider, continue, cline]
+        - name: offset
+          in: query
+          description: Pagination offset
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+        - name: limit
+          in: query
+          description: Results per page
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+      responses:
+        '200':
+          description: List of skills
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  skills:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Skill'
+                  total:
+                    type: integer
+                  categoryBreakdown:
+                    type: object
+                    additionalProperties:
+                      type: integer
+
+  /skills/{skillName}:
+    get:
+      tags:
+        - Skill Details
+      summary: Get skill details
+      description: Retrieve comprehensive information about a specific skill
+      operationId: getSkill
+      parameters:
+        - name: skillName
+          in: path
+          required: true
+          description: Skill identifier (kebab-case)
+          schema:
+            type: string
+            example: git-advanced
+      responses:
+        '200':
+          description: Skill details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SkillDetail'
+        '404':
+          description: Skill not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /skills/search:
+    post:
+      tags:
+        - Skills Discovery
+      summary: Search skills
+      description: Search skills by keyword, category, or tag
+      operationId: searchSkills
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query:
+                  type: string
+                  description: Search query (keyword, skill name)
+                  example: "kubernetes"
+                categories:
+                  type: array
+                  items:
+                    type: string
+                  description: Filter by categories
+                tags:
+                  type: array
+                  items:
+                    type: string
+                  description: Filter by tags
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Skill'
+                  total:
+                    type: integer
+                  query:
+                    type: string
+
+  /categories:
+    get:
+      tags:
+        - Skills Discovery
+      summary: List skill categories
+      description: Get all available skill categories
+      operationId: listCategories
+      responses:
+        '200':
+          description: Category list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  categories:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Category'
+
+  /agents:
+    get:
+      tags:
+        - Skills Discovery
+      summary: List supported agents
+      description: Get list of AI agents that support these skills
+      operationId: listAgents
+      responses:
+        '200':
+          description: Supported agents
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  agents:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Agent'
+
+components:
+  schemas:
+    Skill:
+      type: object
+      required:
+        - name
+        - description
+        - category
+      properties:
+        name:
+          type: string
+          description: Skill identifier (kebab-case)
+          example: git-advanced
+        title:
+          type: string
+          description: Human-readable skill name
+          example: Advanced Git Workflows
+        description:
+          type: string
+          description: Brief skill description
+        category:
+          type: string
+          description: Primary category
+          enum: [testing, ci-cd, infrastructure, developer-tools, utilities, security]
+        version:
+          type: string
+          example: "1.0.0"
+        agents:
+          type: array
+          items:
+            type: string
+          description: Compatible AI agents
+          example: [claude, cursor, windsurf]
+
+    SkillDetail:
+      allOf:
+        - $ref: '#/components/schemas/Skill'
+        - type: object
+          properties:
+            documentation:
+              type: object
+              properties:
+                skill_md:
+                  type: string
+                  description: Main SKILL.md content
+                references:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      path:
+                        type: string
+                      description:
+                        type: string
+            tags:
+              type: array
+              items:
+                type: string
+              example: [git, version-control, workflow]
+            repository:
+              type: object
+              properties:
+                url:
+                  type: string
+                  format: uri
+                path:
+                  type: string
+            useCases:
+              type: array
+              items:
+                type: string
+              example: [version-control, merging, rebasing]
+
+    Category:
+      type: object
+      required:
+        - name
+        - description
+      properties:
+        name:
+          type: string
+          description: Category identifier
+          enum: [testing, ci-cd, infrastructure, developer-tools, utilities, security]
+        description:
+          type: string
+        skillCount:
+          type: integer
+        skills:
+          type: array
+          items:
+            type: string
+
+    Agent:
+      type: object
+      required:
+        - name
+        - version
+      properties:
+        name:
+          type: string
+          enum: [claude, cursor, windsurf, aider, continue, cline]
+        version:
+          type: string
+        description:
+          type: string
+        website:
+          type: string
+          format: uri
+        compatibility:
+          type: string
+          enum: [full, partial]
+
+    Error:
+      type: object
+      required:
+        - error
+        - message
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        details:
+          type: object
