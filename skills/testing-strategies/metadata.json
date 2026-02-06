@@ -1,0 +1,28 @@
+{
+  "version": "1.0.0",
+  "name": "testing-strategies",
+  "abstract": "Master comprehensive testing strategies including unit tests, integration tests, E2E tests, property-based testing, and chaos engineering. Build reliable systems with proper test coverage and quality metrics.",
+  "features": [
+    "Test pyramid and strategy",
+    "Unit testing best practices",
+    "Integration testing approaches",
+    "End-to-end (E2E) testing",
+    "Property-based testing",
+    "Contract testing for microservices",
+    "Chaos engineering and resilience testing",
+    "Test coverage analysis",
+    "Mutation testing",
+    "Behavior-driven development (BDD)",
+    "Test organization and naming",
+    "Mock and stub strategies",
+    "Performance and load testing"
+  ],
+  "references": {
+    "Test Driven Development": "https://en.wikipedia.org/wiki/Test-driven_development",
+    "Growing Object-Oriented Software": "http://www.growing-object-oriented-software.com/",
+    "Working Effectively with Legacy Code": "https://www.oreilly.com/library/view/working-effectively-with/0131177052/",
+    "Jest Testing Framework": "https://jestjs.io/",
+    "Cypress E2E Testing": "https://www.cypress.io/",
+    "Hypothesis Property Testing": "https://hypothesis.readthedocs.io/"
+  }
+}

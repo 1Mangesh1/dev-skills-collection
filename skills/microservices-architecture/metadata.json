@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "name": "microservices-architecture",
+  "abstract": "Design and implement microservices architectures using proven patterns like saga, circuit breaker, API gateway, and event-driven communication. Learn service decomposition, consistency patterns, and distributed systems design.",
+  "features": [
+    "Service decomposition strategies",
+    "Domain-driven design (DDD)",
+    "API gateway pattern",
+    "Database per service pattern",
+    "Circuit breaker for resilience",
+    "Retry and timeout patterns",
+    "Event-driven architecture",
+    "Saga pattern for distributed transactions",
+    "Event sourcing",
+    "Service discovery",
+    "Distributed tracing",
+    "Service mesh (Istio, Linkerd)",
+    "Configuration management",
+    "Deployment strategies (blue-green, canary)",
+    "Data consistency patterns"
+  ],
+  "references": {
+    "Building Microservices by Sam Newman": "https://www.oreilly.com/library/view/building-microservices-2nd/9781492034018/",
+    "Microservices Patterns by Chris Richardson": "https://microservices.io/",
+    "Kubernetes in Action": "https://www.manning.com/books/kubernetes-in-action",
+    "AWS Microservices Architecture": "https://aws.amazon.com/microservices/",
+    "Kong API Gateway": "https://konghq.com/"
+  }
+}

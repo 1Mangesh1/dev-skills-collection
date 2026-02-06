@@ -1,0 +1,23 @@
+{
+  "version": "1.0.0",
+  "name": "api-versioning",
+  "abstract": "Manage API evolution using versioning strategies, backward compatibility patterns, and deprecation approaches. Learn URL path versioning, header-based versioning, content negotiation, and migration strategies.",
+  "features": [
+    "URL path versioning (v1, v2, v3)",
+    "Query parameter versioning",
+    "Header-based versioning strategies",
+    "Content negotiation approaches",
+    "Semantic versioning for APIs",
+    "Breaking change management",
+    "Deprecation policies and timelines",
+    "Migration guides and tools",
+    "Changelog management",
+    "Backward compatibility strategies"
+  ],
+  "references": {
+    "Semantic Versioning": "https://semver.org/",
+    "REST API Design": "https://restfulapi.net/versioning/",
+    "OpenAPI Specification": "https://spec.openapis.org/",
+    "Microsoft REST API Guidelines": "https://github.com/microsoft/api-guidelines"
+  }
+}

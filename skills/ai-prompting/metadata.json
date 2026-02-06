@@ -1,0 +1,21 @@
+{
+  "version": "1.0.0",
+  "name": "ai-prompting",
+  "abstract": "Master prompt engineering techniques and LLM interaction patterns for Claude, GPT, and modern AI models. Learn system prompts, few-shot prompting, chain-of-thought reasoning, and advanced prompt strategies.",
+  "features": [
+    "Prompt structure and design patterns",
+    "Few-shot and zero-shot prompting",
+    "Chain-of-thought reasoning techniques",
+    "System prompt design and tuning",
+    "Prompt optimization strategies",
+    "Role definition and expertise specification",
+    "Context and constraint management",
+    "LLM-specific patterns (Claude, GPT, Gemini)"
+  ],
+  "references": {
+    "OpenAI Prompt Engineering": "https://platform.openai.com/docs/guides/prompt-engineering",
+    "Anthropic Claude Best Practices": "https://docs.anthropic.com/en/docs/build-a-chatbot-with-claude",
+    "Prompt Engineering Institute": "https://www.promptengineering.org/",
+    "LLM Prompt Patterns": "https://github.com/surface2air/lua-patterns"
+  }
+}

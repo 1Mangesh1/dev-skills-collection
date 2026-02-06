@@ -1,0 +1,39 @@
+{
+  "name": "testing-strategies",
+  "version": "1.0.0",
+  "description": "Advanced testing strategies and methodologies.",
+  "compatible_agents": [
+    {
+      "agent": "claude",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "cursor",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "windsurf",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "aider",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "continue",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "cline",
+      "versions": ["latest"]
+    }
+  ],
+  "skill_categories": ["Testing", "Quality Assurance", "Development"],
+  "trigger_phrases": [
+    "testing strategy",
+    "test coverage",
+    "unit testing",
+    "integration testing",
+    "E2E testing"
+  ]
+}

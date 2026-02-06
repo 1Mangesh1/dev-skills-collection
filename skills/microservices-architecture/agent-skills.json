@@ -1,0 +1,39 @@
+{
+  "name": "microservices-architecture",
+  "version": "1.0.0",
+  "description": "Microservices architecture patterns and design.",
+  "compatible_agents": [
+    {
+      "agent": "claude",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "cursor",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "windsurf",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "aider",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "continue",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "cline",
+      "versions": ["latest"]
+    }
+  ],
+  "skill_categories": ["Architecture", "Distributed Systems", "Backend"],
+  "trigger_phrases": [
+    "microservices design",
+    "service decomposition",
+    "circuit breaker",
+    "saga pattern",
+    "event-driven architecture"
+  ]
+}

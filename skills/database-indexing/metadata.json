@@ -1,0 +1,25 @@
+{
+  "version": "1.0.0",
+  "name": "database-indexing",
+  "abstract": "Optimize database query performance through intelligent index selection, query analysis, and schema optimization. Learn B-tree indexes, composite indexes, execution plans, and performance tuning strategies.",
+  "features": [
+    "B-tree index fundamentals",
+    "Hash indexes",
+    "Full-text search indexes",
+    "Spatial indexes for geographic data",
+    "Composite index strategies",
+    "Query plan analysis and EXPLAIN",
+    "Index selection heuristics",
+    "Performance profiling",
+    "Slow query identification",
+    "Index usage monitoring",
+    "Table partitioning strategies",
+    "Query optimization techniques"
+  ],
+  "references": {
+    "PostgreSQL Indexing": "https://www.postgresql.org/docs/current/indexes.html",
+    "MySQL Performance Tuning": "https://dev.mysql.com/doc/refman/8.0/en/optimization.html",
+    "Use the Index, Luke!": "https://use-the-index-luke.com/",
+    "Database Query Optimization": "https://en.wikipedia.org/wiki/Query_plan"
+  }
+}

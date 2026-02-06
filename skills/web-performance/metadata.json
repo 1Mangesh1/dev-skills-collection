@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0",
+  "name": "web-performance",
+  "abstract": "Optimize web application performance using Core Web Vitals, image optimization, code splitting, caching strategies, and performance monitoring. Achieve fast load times and excellent user experience.",
+  "features": [
+    "Core Web Vitals (LCP, FID, CLS)",
+    "Image optimization and lazy loading",
+    "Code splitting and bundling",
+    "Minification and compression",
+    "Caching strategies (browser, CDN, service workers)",
+    "Font optimization",
+    "CSS and JavaScript optimization",
+    "Critical rendering path optimization",
+    "Performance monitoring tools",
+    "Lighthouse auditing",
+    "Real user monitoring (RUM)",
+    "Performance budgets"
+  ],
+  "references": {
+    "Web Vitals": "https://web.dev/vitals/",
+    "Lighthouse": "https://developers.google.com/web/tools/lighthouse",
+    "WebPageTest": "https://www.webpagetest.org/",
+    "MDN Web Performance": "https://developer.mozilla.org/en-US/docs/Web/Performance",
+    "Chrome DevTools": "https://developer.chrome.com/docs/devtools/"
+  }
+}

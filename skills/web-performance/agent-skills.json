@@ -1,0 +1,39 @@
+{
+  "name": "web-performance",
+  "version": "1.0.0",
+  "description": "Web performance optimization and Core Web Vitals.",
+  "compatible_agents": [
+    {
+      "agent": "claude",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "cursor",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "windsurf",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "aider",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "continue",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "cline",
+      "versions": ["latest"]
+    }
+  ],
+  "skill_categories": ["Frontend", "Performance", "User Experience"],
+  "trigger_phrases": [
+    "web performance",
+    "optimization",
+    "Core Web Vitals",
+    "image optimization",
+    "bundle size"
+  ]
+}

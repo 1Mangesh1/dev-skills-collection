@@ -1,0 +1,39 @@
+{
+  "name": "database-indexing",
+  "version": "1.0.0",
+  "description": "Database indexing and query optimization strategies.",
+  "compatible_agents": [
+    {
+      "agent": "claude",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "cursor",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "windsurf",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "aider",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "continue",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "cline",
+      "versions": ["latest"]
+    }
+  ],
+  "skill_categories": ["Database", "Performance", "Backend Development"],
+  "trigger_phrases": [
+    "database indexing",
+    "query optimization",
+    "slow queries",
+    "explain plans",
+    "performance tuning"
+  ]
+}

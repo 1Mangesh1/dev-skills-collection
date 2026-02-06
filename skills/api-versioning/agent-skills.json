@@ -1,0 +1,39 @@
+{
+  "name": "api-versioning",
+  "version": "1.0.0",
+  "description": "API versioning and backward compatibility strategies.",
+  "compatible_agents": [
+    {
+      "agent": "claude",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "cursor",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "windsurf",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "aider",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "continue",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "cline",
+      "versions": ["latest"]
+    }
+  ],
+  "skill_categories": ["API Design", "Backend Development", "Software Architecture"],
+  "trigger_phrases": [
+    "API versioning",
+    "backward compatibility",
+    "breaking changes",
+    "API deprecation",
+    "semantic versioning"
+  ]
+}

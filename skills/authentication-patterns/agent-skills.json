@@ -1,0 +1,39 @@
+{
+  "name": "authentication-patterns",
+  "version": "1.0.0",
+  "description": "Authentication and authorization patterns for modern applications.",
+  "compatible_agents": [
+    {
+      "agent": "claude",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "cursor",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "windsurf",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "aider",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "continue",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "cline",
+      "versions": ["latest"]
+    }
+  ],
+  "skill_categories": ["Security", "Backend Development", "Authentication"],
+  "trigger_phrases": [
+    "authentication patterns",
+    "OAuth implementation",
+    "JWT tokens",
+    "session management",
+    "passwordless auth"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0",
+  "name": "authentication-patterns",
+  "abstract": "Implement modern authentication and authorization patterns including OAuth 2.0, OpenID Connect, JWT, session management, and passwordless authentication for web, mobile, and API applications.",
+  "features": [
+    "OAuth 2.0 flows and implementation",
+    "OpenID Connect (OIDC)",
+    "JWT token management and validation",
+    "Session-based authentication",
+    "Passwordless authentication methods",
+    "WebAuthn and FIDO2",
+    "Multi-factor authentication (MFA)",
+    "Role-based access control (RBAC)",
+    "Attribute-based access control (ABAC)",
+    "Single sign-on (SSO) patterns",
+    "API key management",
+    "Token refresh and rotation strategies"
+  ],
+  "references": {
+    "OAuth 2.0 RFC 6749": "https://tools.ietf.org/html/rfc6749",
+    "OpenID Connect": "https://openid.net/connect/",
+    "JWT RFC 7519": "https://tools.ietf.org/html/rfc7519",
+    "WebAuthn": "https://webauthn.io/",
+    "OWASP Auth Cheat Sheet": "https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html"
+  }
+}

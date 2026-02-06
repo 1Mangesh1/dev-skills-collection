@@ -1,0 +1,27 @@
+{
+  "version": "1.0.0",
+  "name": "monitoring-observability",
+  "abstract": "Implement comprehensive observability across metrics, logs, and traces. Learn structured logging, time-series metrics collection, distributed tracing, APM tools, and alerting strategies for production systems.",
+  "features": [
+    "Three pillars of observability",
+    "Structured logging best practices",
+    "Metrics collection and aggregation",
+    "Time-series databases",
+    "Distributed tracing implementation",
+    "Service dependency mapping",
+    "Alert rules and thresholds",
+    "Dashboard design",
+    "Log aggregation and searching",
+    "APM (Application Performance Monitoring)",
+    "OpenTelemetry instrumentation",
+    "SLO/SLI definition and tracking"
+  ],
+  "references": {
+    "Prometheus": "https://prometheus.io/",
+    "Grafana": "https://grafana.com/",
+    "ELK Stack": "https://www.elastic.co/what-is/elk-stack",
+    "Jaeger Distributed Tracing": "https://www.jaegertracing.io/",
+    "OpenTelemetry": "https://opentelemetry.io/",
+    "Google SRE Book": "https://sre.google/sre-book/"
+  }
+}

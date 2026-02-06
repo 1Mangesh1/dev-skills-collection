@@ -1,0 +1,39 @@
+{
+  "name": "containerization-best-practices",
+  "version": "1.0.0",
+  "description": "Docker and containerization best practices.",
+  "compatible_agents": [
+    {
+      "agent": "claude",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "cursor",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "windsurf",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "aider",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "continue",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "cline",
+      "versions": ["latest"]
+    }
+  ],
+  "skill_categories": ["DevOps", "Docker", "Infrastructure"],
+  "trigger_phrases": [
+    "Docker optimization",
+    "containerization",
+    "image building",
+    "Dockerfile best practices",
+    "container security"
+  ]
+}

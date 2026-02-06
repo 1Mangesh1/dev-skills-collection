@@ -1,0 +1,39 @@
+{
+  "name": "ai-prompting",
+  "version": "1.0.0",
+  "description": "AI prompt engineering and LLM interaction patterns.",
+  "compatible_agents": [
+    {
+      "agent": "claude",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "cursor",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "windsurf",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "aider",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "continue",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "cline",
+      "versions": ["latest"]
+    }
+  ],
+  "skill_categories": ["AI/LLM", "Prompt Engineering", "Generative AI"],
+  "trigger_phrases": [
+    "prompting strategies",
+    "LLM optimization",
+    "system prompt design",
+    "few-shot prompting",
+    "chain of thought"
+  ]
+}

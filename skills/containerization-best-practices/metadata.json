@@ -1,0 +1,28 @@
+{
+  "version": "1.0.0",
+  "name": "containerization-best-practices",
+  "abstract": "Build efficient and secure Docker images using multi-stage builds, size optimization, security hardening, and best practices. Learn image layering, networking, volumes, and container orchestration patterns.",
+  "features": [
+    "Multi-stage Docker builds",
+    "Image layer caching optimization",
+    "Minimal base images (alpine, slim)",
+    "Image size reduction techniques",
+    "Security hardening for containers",
+    "Non-root user configuration",
+    "Secrets management in containers",
+    "Container networking and communication",
+    "Volume and data persistence",
+    "Health checks and liveness probes",
+    "Docker Compose patterns",
+    "Image scanning and vulnerability detection",
+    "Registry best practices",
+    "Container debugging techniques"
+  ],
+  "references": {
+    "Docker Documentation": "https://docs.docker.com/",
+    "Docker Best Practices": "https://docs.docker.com/develop/dockerfile_best-practices/",
+    "Google Container Best Practices": "https://cloud.google.com/architecture/best-practices-for-running-cost-effective-kubernetes-applications-on-gke",
+    "Kubernetes": "https://kubernetes.io/",
+    "OCI Image Spec": "https://github.com/opencontainers/image-spec"
+  }
+}
