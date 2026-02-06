@@ -1,0 +1,376 @@
+{
+  "name": "@1mangesh1/dev-skills-collection",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Comprehensive AI skills collection for developer productivity: 31 powerful tools for testing, CI/CD, infrastructure, DevOps, databases, version control, and utilities.",
+  "author": {
+    "name": "Mangesh Bide",
+    "url": "https://github.com/1Mangesh1"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/1Mangesh1/dev-skills-collection"
+  },
+  "keywords": [
+    "ai-skills",
+    "developer-tools",
+    "devops",
+    "testing",
+    "ci-cd",
+    "infrastructure",
+    "security",
+    "claude-code",
+    "cursor",
+    "windsurf",
+    "aider",
+    "continue",
+    "cline"
+  ],
+  "skillCategories": {
+    "testing": ["jest-vitest", "pytest"],
+    "ci-cd": ["github-actions"],
+    "infrastructure": ["aws-cli", "docker-helper", "kubernetes", "nginx", "redis", "sql-migrations", "ssh-config", "terraform"],
+    "developer-tools": ["gh-cli", "git-advanced", "git-hooks", "graphql", "lint-format", "mcp-setup", "npm-scripts", "python-env", "curl-http", "code-review", "env-debug"],
+    "utilities": ["changelog", "dotfiles", "jq-yq", "makefile", "regex", "tmux", "vim-motions"],
+    "security": ["dependency-audit", "secret-scanner"]
+  },
+  "skillRegistry": {
+    "searchable": true,
+    "totalSkills": 31,
+    "categories": ["testing", "ci-cd", "infrastructure", "developer-tools", "utilities", "security"]
+  },
+  "scripts": {
+    "gen:registry": "node scripts/generate-registry.js",
+    "validate:skills": "node scripts/validate-skills.js"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
+      "name": "aws-cli",
+      "version": "1.0.0",
+      "path": "skills/aws-cli",
+      "description": "AWS CLI commands and infrastructure management",
+      "category": "infrastructure",
+      "agents": ["claude", "cursor", "windsurf", "aider", "continue"]
+    },
+    "changelog": {
+      "name": "changelog",
+      "version": "1.0.0",
+      "path": "skills/changelog",
+      "description": "Generate and manage changelog files",
+      "category": "utilities",
+      "agents": ["claude", "cursor", "windsurf"]
+    },
+    "code-review": {
+      "name": "code-review",
+      "version": "1.0.0",
+      "path": "skills/code-review",
+      "description": "Code review checklists and best practices",
+      "category": "developer-tools",
+      "agents": ["claude", "cursor", "windsurf", "aider"]
+    },
+    "color": {
+      "name": "color",
+      "version": "1.0.0",
+      "path": "skills/color",
+      "description": "Color manipulation and palette tools",
+      "category": "utilities",
+      "agents": ["claude", "cursor", "windsurf"]
+    },
+    "cron": {
+      "name": "cron",
+      "version": "1.0.0",
+      "path": "skills/cron",
+      "description": "Cron job scheduling and syntax",
+      "category": "utilities",
+      "agents": ["claude", "cursor", "windsurf"]
+    },
+    "curl-http": {
+      "name": "curl-http",
+      "version": "1.0.0",
+      "path": "skills/curl-http",
+      "description": "cURL and HTTP client commands",
+      "category": "developer-tools",
+      "agents": ["claude", "cursor", "windsurf", "aider"]
+    },
+    "dependency-audit": {
+      "name": "dependency-audit",
+      "version": "1.0.0",
+      "path": "skills/dependency-audit",
+      "description": "Audit and manage project dependencies",
+      "category": "security",
+      "agents": ["claude", "cursor", "windsurf"]
+    },
+    "dotfiles": {
+      "name": "dotfiles",
+      "version": "1.0.0",
+      "path": "skills/dotfiles",
+      "description": "Manage and configure dotfiles",
+      "category": "utilities",
+      "agents": ["claude", "cursor", "windsurf", "aider"]
+    },
+    "env-debug": {
+      "name": "env-debug",
+      "version": "1.0.0",
+      "path": "skills/env-debug",
+      "description": "Debug environment variables and configurations",
+      "category": "developer-tools",
+      "agents": ["claude", "cursor", "windsurf"]
+    },
+    "gh-cli": {
+      "name": "gh-cli",
+      "version": "1.0.0",
+      "path": "skills/gh-cli",
+      "description": "GitHub CLI commands and workflows",
+      "category": "developer-tools",
+      "agents": ["claude", "cursor", "windsurf", "aider", "continue"]
+    },
+    "git-advanced": {
+      "name": "git-advanced",
+      "version": "1.0.0",
+      "path": "skills/git-advanced",
+      "description": "Advanced Git workflows and commands",
+      "category": "developer-tools",
+      "agents": ["claude", "cursor", "windsurf", "aider", "continue"]
+    },
+    "git-emoji": {
+      "name": "git-emoji",
+      "version": "1.0.0",
+      "path": "skills/git-emoji",
+      "description": "Emoji conventions for Git commits",
+      "category": "developer-tools",
+      "agents": ["claude", "cursor", "windsurf"]
+    },
+    "git-hooks": {
+      "name": "git-hooks",
+      "version": "1.0.0",
+      "path": "skills/git-hooks",
+      "description": "Git hooks and automation",
+      "category": "developer-tools",
+      "agents": ["claude", "cursor", "windsurf", "aider"]
+    },
+    "github-actions": {
+      "name": "github-actions",
+      "version": "1.0.0",
+      "path": "skills/github-actions",
+      "description": "GitHub Actions workflows and CI/CD",
+      "category": "ci-cd",
+      "agents": ["claude", "cursor", "windsurf", "aider", "continue"]
+    },
+    "graphql": {
+      "name": "graphql",
+      "version": "1.0.0",
+      "path": "skills/graphql",
+      "description": "GraphQL query language and APIs",
+      "category": "developer-tools",
+      "agents": ["claude", "cursor", "windsurf", "aider"]
+    },
+    "http-status": {
+      "name": "http-status",
+      "version": "1.0.0",
+      "path": "skills/http-status",
+      "description": "HTTP status codes reference",
+      "category": "utilities",
+      "agents": ["claude", "cursor", "windsurf"]
+    },
+    "jest-vitest": {
+      "name": "jest-vitest",
+      "version": "1.0.0",
+      "path": "skills/jest-vitest",
+      "description": "Jest and Vitest testing frameworks",
+      "category": "testing",
+      "agents": ["claude", "cursor", "windsurf", "aider", "continue"]
+    },
+    "jq-yq": {
+      "name": "jq-yq",
+      "version": "1.0.0",
+      "path": "skills/jq-yq",
+      "description": "JSON and YAML processing with jq and yq",
+      "category": "utilities",
+      "agents": ["claude", "cursor", "windsurf", "aider"]
+    },
+    "kubernetes": {
+      "name": "kubernetes",
+      "version": "1.0.0",
+      "path": "skills/kubernetes",
+      "description": "Kubernetes and container orchestration",
+      "category": "infrastructure",
+      "agents": ["claude", "cursor", "windsurf", "aider", "continue"]
+    },
+    "lint-format": {
+      "name": "lint-format",
+      "version": "1.0.0",
+      "path": "skills/lint-format",
+      "description": "Code linting and formatting tools",
+      "category": "developer-tools",
+      "agents": ["claude", "cursor", "windsurf", "aider", "continue"]
+    },
+    "makefile": {
+      "name": "makefile",
+      "version": "1.0.0",
+      "path": "skills/makefile",
+      "description": "Makefile syntax and build automation",
+      "category": "utilities",
+      "agents": ["claude", "cursor", "windsurf", "aider"]
+    },
+    "markdown": {
+      "name": "markdown",
+      "version": "1.0.0",
+      "path": "skills/markdown",
+      "description": "Markdown syntax and documentation",
+      "category": "utilities",
+      "agents": ["claude", "cursor", "windsurf", "aider", "continue"]
+    },
+    "mcp-setup": {
+      "name": "mcp-setup",
+      "version": "1.0.0",
+      "path": "skills/mcp-setup",
+      "description": "Model Context Protocol setup and configuration",
+      "category": "meta",
+      "agents": ["claude", "cursor", "windsurf"]
+    },
+    "nginx": {
+      "name": "nginx",
+      "version": "1.0.0",
+      "path": "skills/nginx",
+      "description": "Nginx web server configuration",
+      "category": "infrastructure",
+      "agents": ["claude", "cursor", "windsurf", "aider"]
+    },
+    "npm-scripts": {
+      "name": "npm-scripts",
+      "version": "1.0.0",
+      "path": "skills/npm-scripts",
+      "description": "NPM scripts and task automation",
+      "category": "developer-tools",
+      "agents": ["claude", "cursor", "windsurf", "aider", "continue"]
+    },
+    "one-liners": {
+      "name": "one-liners",
+      "version": "1.0.0",
+      "path": "skills/one-liners",
+      "description": "Useful command-line one-liners",
+      "category": "utilities",
+      "agents": ["claude", "cursor", "windsurf"]
+    },
+    "placeholder-data": {
+      "name": "placeholder-data",
+      "version": "1.0.0",
+      "path": "skills/placeholder-data",
+      "description": "Generate placeholder and mock data",
+      "category": "utilities",
+      "agents": ["claude", "cursor", "windsurf", "aider"]
+    },
+    "pytest": {
+      "name": "pytest",
+      "version": "1.0.0",
+      "path": "skills/pytest",
+      "description": "Python pytest testing framework",
+      "category": "testing",
+      "agents": ["claude", "cursor", "windsurf", "aider", "continue"]
+    },
+    "python-env": {
+      "name": "python-env",
+      "version": "1.0.0",
+      "path": "skills/python-env",
+      "description": "Python virtual environments and package management",
+      "category": "developer-tools",
+      "agents": ["claude", "cursor", "windsurf", "aider", "continue"]
+    },
+    "redis": {
+      "name": "redis",
+      "version": "1.0.0",
+      "path": "skills/redis",
+      "description": "Redis database and caching",
+      "category": "infrastructure",
+      "agents": ["claude", "cursor", "windsurf", "aider"]
+    },
+    "regex": {
+      "name": "regex",
+      "version": "1.0.0",
+      "path": "skills/regex",
+      "description": "Regular expressions and pattern matching",
+      "category": "utilities",
+      "agents": ["claude", "cursor", "windsurf", "aider", "continue"]
+    },
+    "secret-scanner": {
+      "name": "secret-scanner",
+      "version": "1.0.0",
+      "path": "skills/secret-scanner",
+      "description": "Detect and scan for secrets in code",
+      "category": "security",
+      "agents": ["claude", "cursor", "windsurf", "aider"]
+    },
+    "shortcuts": {
+      "name": "shortcuts",
+      "version": "1.0.0",
+      "path": "skills/shortcuts",
+      "description": "Keyboard shortcuts and productivity tips",
+      "category": "utilities",
+      "agents": ["claude", "cursor", "windsurf"]
+    },
+    "sql-migrations": {
+      "name": "sql-migrations",
+      "version": "1.0.0",
+      "path": "skills/sql-migrations",
+      "description": "Database migrations and SQL best practices",
+      "category": "infrastructure",
+      "agents": ["claude", "cursor", "windsurf", "aider"]
+    },
+    "ssh-config": {
+      "name": "ssh-config",
+      "version": "1.0.0",
+      "path": "skills/ssh-config",
+      "description": "SSH configuration and key management",
+      "category": "infrastructure",
+      "agents": ["claude", "cursor", "windsurf", "aider", "continue"]
+    },
+    "terraform": {
+      "name": "terraform",
+      "version": "1.0.0",
+      "path": "skills/terraform",
+      "description": "Terraform infrastructure as code",
+      "category": "infrastructure",
+      "agents": ["claude", "cursor", "windsurf", "aider", "continue"]
+    },
+    "tmux": {
+      "name": "tmux",
+      "version": "1.0.0",
+      "path": "skills/tmux",
+      "description": "Tmux terminal multiplexer",
+      "category": "utilities",
+      "agents": ["claude", "cursor", "windsurf", "aider"]
+    },
+    "vim-motions": {
+      "name": "vim-motions",
+      "version": "1.0.0",
+      "path": "skills/vim-motions",
+      "description": "Vim motions and keyboard shortcuts",
+      "category": "utilities",
+      "agents": ["claude", "cursor", "windsurf", "aider"]
+    }
+  },
+  "skillCategories": {
+    "testing": ["jest-vitest", "pytest"],
+    "ci-cd": ["github-actions"],
+    "infrastructure": ["aws-cli", "docker-helper", "kubernetes", "nginx", "redis", "sql-migrations", "ssh-config", "terraform"],
+    "developer-tools": ["api-design", "gh-cli", "git-advanced", "git-emoji", "git-hooks", "graphql", "lint-format", "mcp-setup", "npm-scripts", "python-env", "curl-http", "code-review", "env-debug"],
+    "utilities": ["ascii-art", "changelog", "color", "cron", "dotfiles", "http-status", "jq-yq", "makefile", "markdown", "one-liners", "placeholder-data", "regex", "shortcuts", "tmux", "vim-motions"],
+    "security": ["dependency-audit", "secret-scanner"],
+    "meta": ["skill-creator"]
+  },
+  "skillRegistry": {
+    "searchable": true,
+    "totalSkills": 41,
+    "categories": ["testing", "ci-cd", "infrastructure", "developer-tools", "utilities", "security", "meta"]
+  },
+  "scripts": {
+    "gen:registry": "node scripts/generate-registry.js",
+    "validate:skills": "node scripts/validate-skills.js"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
