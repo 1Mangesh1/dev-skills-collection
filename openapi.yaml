@@ -11,10 +11,10 @@ info:
     url: 'https://github.com/1Mangesh1/dev-skills-collection/blob/main/LICENSE'
 
 servers:
-  - url: 'https://api.dev-skills.dev'
-    description: Production API
   - url: 'http://localhost:3000'
-    description: Development API
+    description: Local Development API
+  - url: 'http://localhost:3001'
+    description: Alternative Local Development API
 
 tags:
   - name: Skills Discovery
