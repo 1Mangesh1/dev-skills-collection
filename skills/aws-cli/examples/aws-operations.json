@@ -1,0 +1,19 @@
+{
+  "aws_example": {
+    "ec2_instance": {
+      "launch_command": "aws ec2 run-instances --image-id ami-0c55b159cbfafe1f0 --instance-type t3.micro",
+      "instance_details": {
+        "id": "i-0123456789abcdef0",
+        "type": "t3.micro",
+        "state": "running",
+        "public_ip": "203.0.113.42",
+        "key_name": "my-key-pair"
+      }
+    },
+    "s3_operations": {
+      "create_bucket": "aws s3api create-bucket --bucket my-app-bucket",
+      "upload": "aws s3 sync ./dist s3://my-app-bucket/",
+      "list": "aws s3api list-objects-v2 --bucket my-app-bucket"
+    }
+  }
+}

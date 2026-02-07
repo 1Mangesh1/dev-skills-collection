@@ -1,0 +1,132 @@
+{
+  "dockerfile_audit_report": {
+    "timestamp": "2024-02-07T17:00:00Z",
+    "file": "Dockerfile",
+    "overall_score": 58,
+    "grade": "F",
+    "summary": {
+      "total_issues": 11,
+      "critical": 2,
+      "high": 4,
+      "medium": 5,
+      "status": "needs_significant_improvement"
+    },
+    "critical_issues": [
+      {
+        "line": 1,
+        "severity": "CRITICAL",
+        "issue": "Using latest or unspecified image tag",
+        "current": "FROM python:latest",
+        "recommendation": "Always use specific version tags for reproducibility",
+        "example": "FROM python:3.11-slim-bookworm",
+        "impact": "Build unpredictability, security updates may break build"
+      },
+      {
+        "severity": "CRITICAL",
+        "issue": "Container runs as root user",
+        "recommendation": "Create and use a non-root user for security",
+        "example": "RUN useradd -r -u 1001 appuser\nUSER appuser",
+        "impact": "Compromised container has full system access"
+      }
+    ],
+    "high_severity_issues": [
+      {
+        "line": 5,
+        "severity": "HIGH",
+        "issue": "Using heavy base image",
+        "current": "FROM python:latest (1.0GB)",
+        "recommendation": "Use slim variant for production",
+        "example": "FROM python:3.11-slim (150MB) - 85% smaller",
+        "impact": "Slower deployment, higher storage costs"
+      },
+      {
+        "line": 15,
+        "severity": "HIGH",
+        "issue": "Potential API key hardcoded in Dockerfile",
+        "recommendation": "Use build arguments or environment variables",
+        "example": "ARG API_KEY\nENV API_KEY=$API_KEY",
+        "impact": "Secrets exposed in image layers"
+      },
+      {
+        "severity": "HIGH",
+        "issue": "No HEALTHCHECK defined",
+        "recommendation": "Add health check for production readiness",
+        "example": "HEALTHCHECK --interval=30s CMD curl -f http://localhost:8000/health",
+        "impact": "Container may be considered healthy when it's not"
+      },
+      {
+        "line": 25,
+        "severity": "HIGH",
+        "issue": "Too many RUN instructions creating layers",
+        "current": "15 RUN instructions",
+        "recommendation": "Combine with && to reduce layers",
+        "example": "RUN cmd1 && cmd2 && cmd3",
+        "impact": "Larger image size, slower builds"
+      }
+    ],
+    "medium_severity_issues": [
+      {
+        "severity": "MEDIUM",
+        "issue": "apt-get used without cleanup",
+        "recommendation": "Clean apt cache to reduce image size",
+        "example": "RUN apt-get update && apt-get install -y ... && apt-get clean && rm -rf /var/lib/apt/lists/*",
+        "impact": "Image size bloat (~200MB)"
+      },
+      {
+        "severity": "MEDIUM",
+        "issue": "No multi-stage build used",
+        "recommendation": "Use multi-stage builds to separate build and runtime",
+        "impact": "Final image includes build tools and dependencies",
+        "potential_size_reduction": "60-90%"
+      },
+      {
+        "severity": "MEDIUM",
+        "issue": "Copying entire directory without .dockerignore",
+        "recommendation": "Create .dockerignore to exclude unnecessary files",
+        "example": ".git\nnode_modules\n*.log\n*.pyc",
+        "impact": "Larger build context, slower builds"
+      },
+      {
+        "severity": "MEDIUM",
+        "issue": "sudo usage in Dockerfile",
+        "recommendation": "Use USER and permission management instead",
+        "impact": "Unnecessary package, security concern"
+      },
+      {
+        "severity": "MEDIUM",
+        "issue": "No resource limits defined in Kubernetes manifests",
+        "recommendation": "Set CPU and memory requests/limits",
+        "impact": "Unpredictable resource usage"
+      }
+    ],
+    "recommendations": {
+      "immediate": [
+        "Fix critical issues: root user and image tag",
+        "Use specific Python version: python:3.11-slim-bookworm",
+        "Add non-root user with USER directive",
+        "Remove hardcoded secrets"
+      ],
+      "short_term": [
+        "Implement multi-stage builds (save 60% size)",
+        "Add HEALTHCHECK directive",
+        "Combine RUN commands (reduce layer count)",
+        "Clean up apt cache after install",
+        "Create .dockerignore file"
+      ],
+      "long_term": [
+        "Migrate to distroless base image (smaller, faster)",
+        "Implement image scanning in CI/CD",
+        "Set up private container registry",
+        "Add resource limits to Kubernetes manifests",
+        "Implement image policies in cluster"
+      ]
+    },
+    "estimated_improvements": {
+      "current_image_size_mb": 1050,
+      "optimized_image_size_mb": 200,
+      "size_reduction_percent": 81,
+      "build_time_reduction_percent": 35,
+      "security_improvements": "Critical issues resolved"
+    }
+  }
+}

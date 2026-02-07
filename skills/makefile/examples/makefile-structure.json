@@ -1,0 +1,23 @@
+{
+  "makefile_example": {
+    "file": "Makefile",
+    "targets": [
+      {
+        "name": "install",
+        "description": "Install dependencies",
+        "command": "npm install"
+      },
+      {
+        "name": "test",
+        "description": "Run tests",
+        "command": "npm test"
+      },
+      {
+        "name": "build",
+        "description": "Build project",
+        "command": "npm run build",
+        "dependencies": ["test"]
+      }
+    ]
+  }
+}

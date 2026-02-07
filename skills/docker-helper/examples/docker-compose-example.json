@@ -1,0 +1,18 @@
+{
+  "docker_example": {
+    "compose_file": "docker-compose.yml",
+    "services": {
+      "web": {
+        "status": "running",
+        "image": "myapp:latest",
+        "port": "8080:8080",
+        "memory": "512MB"
+      },
+      "database": {
+        "status": "running",
+        "image": "postgres:15-alpine",
+        "volumes": ["db_data:/var/lib/postgresql/data"]
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "metrics_example": {
+    "collection_interval": "30s",
+    "sample_metrics": {
+      "http_requests_total": {
+        "value": 125432,
+        "labels": {"method": "GET", "path": "/api/users", "status": "200"},
+        "timestamp": "2025-02-07T10:30:00Z"
+      },
+      "http_request_duration_seconds": {
+        "percentiles": {
+          "p50": 0.045,
+          "p95": 0.234,
+          "p99": 0.567
+        },
+        "unit": "seconds"
+      },
+      "database_query_duration_ms": {
+        "value": 145,
+        "labels": {"query_type": "SELECT"}
+      },
+      "active_connections": {
+        "value": 342,
+        "labels": {"connection_type": "database"}
+      }
+    }
+  }
+}

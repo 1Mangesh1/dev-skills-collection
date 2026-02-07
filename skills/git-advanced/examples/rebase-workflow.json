@@ -1,0 +1,16 @@
+{
+  "git_example": {
+    "workflow": "Branch, commit, squash, rebase, merge",
+    "steps": {
+      "1_create_branch": "git checkout -b feat/auth-system",
+      "2_commits": [
+        "git commit -m 'feat: add login endpoint'",
+        "git commit -m 'fix: resolve token issue'",
+        "git commit -m 'test: add login tests'"
+      ],
+      "3_squash": "git rebase -i HEAD~3",
+      "4_push": "git push origin feat/auth-system",
+      "5_merge": "git checkout main && git pull && git merge --ff-only feat/auth-system"
+    }
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "trace_id": "trace-2024-02-07-001",
+  "start_time": "2024-02-07T10:30:45.123Z",
+  "end_time": "2024-02-07T10:30:46.543Z",
+  "duration_ms": 1420,
+  "status": "SUCCESS",
+  "root_service": "api-gateway",
+  "spans": [
+    {
+      "span_id": "span-001",
+      "trace_id": "trace-2024-02-07-001",
+      "parent_span_id": null,
+      "service_name": "api-gateway",
+      "span_name": "POST /api/users/register",
+      "start_time": "2024-02-07T10:30:45.123Z",
+      "end_time": "2024-02-07T10:30:46.543Z",
+      "duration_ms": 1420,
+      "status": "OK",
+      "attributes": {
+        "http.method": "POST",
+        "http.url": "/api/users/register",
+        "http.status_code": 201,
+        "http.client_ip": "192.168.1.100"
+      },
+      "events": [
+        {
+          "name": "validation_complete",
+          "timestamp": "2024-02-07T10:30:45.200Z"
+        }
+      ]
+    },
+    {
+      "span_id": "span-002",
+      "trace_id": "trace-2024-02-07-001",
+      "parent_span_id": "span-001",
+      "service_name": "user-service",
+      "span_name": "createUser",
+      "start_time": "2024-02-07T10:30:45.300Z",
+      "end_time": "2024-02-07T10:30:46.100Z",
+      "duration_ms": 800,
+      "status": "OK",
+      "attributes": {
+        "user.email": "user@example.com",
+        "user.region": "us-west-2"
+      }
+    },
+    {
+      "span_id": "span-003",
+      "trace_id": "trace-2024-02-07-001",
+      "parent_span_id": "span-002",
+      "service_name": "database",
+      "span_name": "INSERT users table",
+      "start_time": "2024-02-07T10:30:45.350Z",
+      "end_time": "2024-02-07T10:30:45.650Z",
+      "duration_ms": 300,
+      "status": "OK",
+      "attributes": {
+        "db.system": "postgresql",
+        "db.operation": "INSERT",
+        "db.rows_affected": 1
+      }
+    },
+    {
+      "span_id": "span-004",
+      "trace_id": "trace-2024-02-07-001",
+      "parent_span_id": "span-002",
+      "service_name": "cache",
+      "span_name": "SET user cache",
+      "start_time": "2024-02-07T10:30:45.700Z",
+      "end_time": "2024-02-07T10:30:45.750Z",
+      "duration_ms": 50,
+      "status": "OK",
+      "attributes": {
+        "cache.system": "redis",
+        "cache.key": "user:12345",
+        "cache.ttl_seconds": 3600
+      }
+    },
+    {
+      "span_id": "span-005",
+      "trace_id": "trace-2024-02-07-001",
+      "parent_span_id": "span-001",
+      "service_name": "notification-service",
+      "span_name": "sendWelcomeEmail",
+      "start_time": "2024-02-07T10:30:46.150Z",
+      "end_time": "2024-02-07T10:30:46.500Z",
+      "duration_ms": 350,
+      "status": "OK",
+      "attributes": {
+        "messaging.system": "email",
+        "messaging.destination": "user@example.com",
+        "messaging.template": "welcome-email"
+      }
+    }
+  ],
+  "summary": {
+    "total_duration_ms": 1420,
+    "service_count": 4,
+    "span_count": 5,
+    "error_count": 0,
+    "critical_path_ms": 1420,
+    "services": ["api-gateway", "user-service", "database", "cache", "notification-service"]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "migration_example": {
+    "migration_file": "20240120120000_create_users_table.sql",
+    "status": "applied",
+    "applied_at": "2024-01-20T12:00:00Z",
+    "changes": {
+      "created_tables": ["users"],
+      "created_indexes": ["idx_users_email"]
+    }
+  }
+}

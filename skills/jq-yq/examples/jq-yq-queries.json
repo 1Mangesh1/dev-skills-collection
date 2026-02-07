@@ -1,0 +1,19 @@
+{
+  "jq_yq_examples": {
+    "jq_example": {
+      "input": {
+        "users": [
+          {"name": "Alice", "age": 30, "role": "admin"},
+          {"name": "Bob", "age": 25, "role": "user"}
+        ]
+      },
+      "query": ".users[] | select(.role == \"admin\") | .name",
+      "output": "Alice"
+    },
+    "yq_example": {
+      "input": "kind: Deployment\nmetadata:\n  name: myapp",
+      "query": ".metadata.name",
+      "output": "myapp"
+    }
+  }
+}

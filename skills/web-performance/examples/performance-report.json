@@ -1,0 +1,167 @@
+{
+  "performance_audit_report": {
+    "timestamp": "2024-02-07T16:30:00Z",
+    "url": "https://app.example.com",
+    "overall_score": 72,
+    "grade": "C",
+    "core_web_vitals": {
+      "lcp": {
+        "value_ms": 2800,
+        "target_ms": 2500,
+        "status": "NEEDS_IMPROVEMENT",
+        "percentile": "p75",
+        "description": "Largest Contentful Paint - how long before page looks fully rendered",
+        "issues": [
+          "Large hero image (2.5MB)",
+          "Render-blocking CSS",
+          "Slow server response time"
+        ]
+      },
+      "fid": {
+        "value_ms": 85,
+        "target_ms": 100,
+        "status": "GOOD",
+        "percentile": "p75",
+        "description": "First Input Delay - responsiveness to user input"
+      },
+      "cls": {
+        "value": 0.15,
+        "target": 0.1,
+        "status": "NEEDS_IMPROVEMENT",
+        "issues": [
+          "Ad framework causing shifts",
+          "Dynamically loaded content",
+          "Font loading delays"
+        ]
+      },
+      "overall_cwv_score": 60
+    },
+    "page_load_metrics": {
+      "first_contentful_paint_ms": 1200,
+      "largest_contentful_paint_ms": 2800,
+      "time_to_interactive_ms": 5200,
+      "total_blocking_time_ms": 250,
+      "cumulative_layout_shift": 0.15,
+      "speed_index_ms": 2100
+    },
+    "resource_analysis": {
+      "total_resources": 78,
+      "total_size_kb": 1245,
+      "html_kb": 45,
+      "css_kb": 125,
+      "javascript_kb": 450,
+      "images_kb": 550,
+      "fonts_kb": 75,
+      "by_type": {
+        "document": {
+          "count": 1,
+          "size_kb": 45,
+          "avg_time_ms": 320
+        },
+        "stylesheet": {
+          "count": 5,
+          "size_kb": 125,
+          "avg_time_ms": 150
+        },
+        "script": {
+          "count": 12,
+          "size_kb": 450,
+          "avg_time_ms": 280
+        },
+        "image": {
+          "count": 42,
+          "size_kb": 550,
+          "avg_time_ms": 350
+        },
+        "font": {
+          "count": 4,
+          "size_kb": 75,
+          "avg_time_ms": 600
+        }
+      }
+    },
+    "performance_issues": [
+      {
+        "severity": "HIGH",
+        "issue": "Large JavaScript Bundle",
+        "current": "450KB",
+        "target": "200-250KB",
+        "impact": "Cannot parse and execute in time",
+        "recommendations": [
+          "Implement code splitting by route",
+          "Use dynamic imports for heavy libraries",
+          "Remove unused dependencies",
+          "Enable tree-shaking in webpack"
+        ]
+      },
+      {
+        "severity": "HIGH",
+        "issue": "Unoptimized Images",
+        "current": "550KB for 42 images",
+        "target": "200KB",
+        "impact": "Images block rendering and take up 44% of page weight",
+        "recommendations": [
+          "Convert to WebP format",
+          "Implement responsive images",
+          "Enable lazy loading",
+          "Use image compression tool (ImageMagick, TinyPNG)"
+        ]
+      },
+      {
+        "severity": "MEDIUM",
+        "issue": "Render-Blocking CSS",
+        "current": "125KB inline CSS",
+        "recommendations": [
+          "Inline critical CSS only",
+          "Defer non-critical CSS",
+          "Use font-display: swap",
+          "Minimize CSS bundle"
+        ]
+      },
+      {
+        "severity": "MEDIUM",
+        "issue": "Cumulative Layout Shift",
+        "current": "0.15 (target: 0.1)",
+        "issues": [
+          "Ad framework (0.08 CLS)",
+          "Dynamic content injection (0.05 CLS)",
+          "Missing image dimensions (0.02 CLS)"
+        ],
+        "recommendations": [
+          "Reserve space for ads",
+          "Pre-calculate dynamic content height",
+          "Always specify width/height on images",
+          "Use aspect-ratio CSS"
+        ]
+      }
+    ],
+    "actionable_recommendations": {
+      "immediate": [
+        "Optimize images: Save 350KB (28% reduction)",
+        "Code split bundle: Save 150KB (33% reduction)",
+        "Fix CLS issues: Improve from 0.15 to 0.08"
+      ],
+      "short_term": [
+        "Implement lazy loading for below-fold images",
+        "Move non-critical CSS to defer loading",
+        "Enable Brotli compression (save 25%)"
+      ],
+      "long_term": [
+        "Migrate to modern framework (React/Vue)",
+        "Implement service workers for caching",
+        "Set up CDN for global distribution",
+        "Monitor performance with RUM (Real User Metrics)"
+      ]
+    },
+    "estimated_improvements": {
+      "bundle_size_current_kb": 1245,
+      "bundle_size_optimized_kb": 650,
+      "size_savings_percent": 48,
+      "lcp_current_ms": 2800,
+      "lcp_optimized_ms": 1200,
+      "lcp_improvement_percent": 57,
+      "overall_score_current": 72,
+      "overall_score_potential": 92
+    }
+  }
+}

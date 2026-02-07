@@ -1,0 +1,15 @@
+{
+  "ssh_config_example": {
+    "hosts": {
+      "github.com": {
+        "user": "git",
+        "identity_file": "~/.ssh/github_key"
+      },
+      "production": {
+        "hostname": "192.168.1.100",
+        "user": "deploy",
+        "port": 2222
+      }
+    }
+  }
+}

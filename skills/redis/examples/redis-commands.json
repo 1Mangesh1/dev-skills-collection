@@ -1,0 +1,9 @@
+{
+  "redis_operations": {
+    "setup": "redis-cli PING",
+    "basic_set": "SET user:123 John",
+    "basic_get": "GET user:123",
+    "list_ops": "LPUSH tasks 'task1' 'task2'",
+    "expiry": "EXPIRE user:123 3600"
+  }
+}

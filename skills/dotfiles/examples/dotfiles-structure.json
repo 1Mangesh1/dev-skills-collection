@@ -1,0 +1,28 @@
+{
+  "dotfiles_repo_structure": {
+    "path": "~/.dotfiles",
+    "structure": {
+      "bash": {
+        ".bashrc": "500 lines",
+        ".bash_profile": "50 lines",
+        ".bash_aliases": "150 lines"
+      },
+      "zsh": {
+        ".zshrc": "600 lines",
+        ".zprofile": "100 lines"
+      },
+      "vim": {
+        ".vimrc": "800 lines",
+        "plugins/": "plugin configs"
+      },
+      "git": {
+        ".gitconfig": "template config",
+        ".gitignore_global": "global ignores"
+      }
+    },
+    "management": {
+      "tool": "GNU Stow",
+      "method": "Symlinks"
+    }
+  }
+}

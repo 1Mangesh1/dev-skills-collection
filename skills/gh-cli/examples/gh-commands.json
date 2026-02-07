@@ -1,0 +1,9 @@
+{
+  "gh_cli_examples": {
+    "create_pr": "gh pr create --title 'feat: dark mode' --body 'Adds dark theme support'",
+    "merge_pr": "gh pr merge 123 --squash --delete-branch",
+    "create_issue": "gh issue create --title 'Bug: Login broken' --label bug",
+    "create_release": "gh release create v1.0.0 --title 'Release v1.0.0'",
+    "list_prs": "gh pr list --state open --reviewer me"
+  }
+}

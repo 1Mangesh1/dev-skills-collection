@@ -1,0 +1,24 @@
+{
+  "performance_audit": {
+    "url": "https://example.com",
+    "timestamp": "2025-02-07T10:30:00Z",
+    "core_web_vitals": {
+      "lcp": {"value": 1.8, "unit": "s", "status": "good"},
+      "fid": {"value": 45, "unit": "ms", "status": "good"},
+      "cls": {"value": 0.05, "unit": "score", "status": "good"}
+    },
+    "other_metrics": {
+      "fcp": 0.9,
+      "ttfb": 0.3,
+      "tti": 3.2,
+      "speed_index": 1.5
+    },
+    "opportunities": [
+      "Remove unused JavaScript (45KB)",
+      "Optimize images (156KB savings)",
+      "Enable text compression (89KB savings)",
+      "Minify CSS (23KB savings)"
+    ],
+    "score": 92
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "docker_example": {
+    "scenario": "Multi-stage Node.js application",
+    "dockerfile_stages": {
+      "build_stage": {
+        "base_image": "node:18",
+        "steps": [
+          "COPY package.json ./",
+          "RUN npm ci --only=production",
+          "RUN npm run build"
+        ],
+        "purpose": "Compile and build application"
+      },
+      "runtime_stage": {
+        "base_image": "node:18-alpine",
+        "size": "170MB (vs 1.2GB with build tools)",
+        "steps": [
+          "COPY --from=builder /app/dist ./dist",
+          "COPY --from=builder /app/node_modules ./node_modules",
+          "USER appuser",
+          "CMD ['npm', 'start']"
+        ],
+        "purpose": "Minimal runtime-only image"
+      }
+    },
+    "size_reduction": {
+      "with_build_tools": 1200,
+      "without_build_tools": 250,
+      "reduction_percent": 79
+    }
+  }
+}

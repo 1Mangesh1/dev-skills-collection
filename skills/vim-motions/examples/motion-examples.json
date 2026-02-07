@@ -1,0 +1,10 @@
+{
+  "vim_motion_examples": {
+    "delete_word": "dw",
+    "copy_line": "yy",
+    "change_until_paren": "ct)",
+    "select_in_quotes": "vi\"",
+    "delete_paragraph": "dap",
+    "go_to_line": "42G"
+  }
+}

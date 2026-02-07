@@ -1,0 +1,42 @@
+{
+  "profiles": {
+    "default": {
+      "region": "us-east-1",
+      "output": "json",
+      "description": "Default development profile"
+    },
+    "production": {
+      "region": "us-west-2",
+      "output": "json",
+      "mfa_serial": "arn:aws:iam::123456789012:mfa/username",
+      "role_arn": "arn:aws:iam::123456789012:role/production-role",
+      "source_profile": "default",
+      "description": "Production AWS environment"
+    },
+    "staging": {
+      "region": "eu-west-1",
+      "output": "json",
+      "role_arn": "arn:aws:iam::234567890123:role/staging-role",
+      "source_profile": "default",
+      "description": "Staging AWS environment"
+    }
+  },
+  "common_operations": {
+    "list_instances": {
+      "command": "aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId,State.Name,PublicIpAddress,Tags[?Key==`Name`].Value|[0]]' --output table",
+      "description": "List all EC2 instances with basic information"
+    },
+    "create_instance": {
+      "command": "aws ec2 run-instances --image-id ami-0123456789abcdef0 --count 1 --instance-type t3.micro --key-name my-key --security-groups my-sg",
+      "description": "Launch a new EC2 instance"
+    },
+    "backup_s3_bucket": {
+      "command": "aws s3 sync s3://source-bucket s3://backup-bucket --delete",
+      "description": "Backup S3 bucket to another bucket"
+    },
+    "create_rds_backup": {
+      "command": "aws rds create-db-snapshot --db-instance-identifier mydb --db-snapshot-identifier mydb-backup-$(date +%s)",
+      "description": "Create RDS database snapshot"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "lint_results": {
+    "file": "src/index.js",
+    "linter": "ESLint",
+    "total_issues": 3,
+    "errors": 1,
+    "warnings": 2,
+    "issues": [
+      {
+        "line": 10,
+        "column": 5,
+        "type": "error",
+        "message": "Unexpected console statement",
+        "rule": "no-console"
+      },
+      {
+        "line": 15,
+        "column": 20,
+        "type": "warning",
+        "message": "Unused variable",
+        "rule": "no-unused-vars"
+      }
+    ]
+  }
+}

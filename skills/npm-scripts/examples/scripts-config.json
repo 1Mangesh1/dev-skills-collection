@@ -1,0 +1,9 @@
+{
+  "package_scripts_example": {
+    "dev": "vite",
+    "build": "vite build",
+    "test": "jest --coverage",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  }
+}

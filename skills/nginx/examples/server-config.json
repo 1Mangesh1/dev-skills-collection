@@ -1,0 +1,13 @@
+{
+  "nginx_config_example": {
+    "server_block": {
+      "listen": 80,
+      "server_name": "example.com",
+      "locations": {
+        "root": "/var/www/html",
+        "api_proxy": "http://localhost:8080",
+        "static_cache": "30d"
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "terraform_configuration": {
+    "provider": "aws",
+    "region": "us-east-1",
+    "resources": {
+      "aws_instance": "t2.micro",
+      "aws_vpc": "10.0.0.0/16"
+    },
+    "variables": {
+      "environment": "production",
+      "instance_count": 1
+    }
+  }
+}

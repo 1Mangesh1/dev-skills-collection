@@ -1,0 +1,39 @@
+{
+  "architecture_example": {
+    "service_topology": {
+      "api_gateway": {
+        "path": "example.com/api",
+        "routes": [
+          "/users -> user-service:8001",
+          "/orders -> order-service:8002",
+          "/payments -> payment-service:8003"
+        ]
+      },
+      "services": {
+        "user_service": {
+          "port": 8001,
+          "database": "postgres://users",
+          "cache": "redis://cache",
+          "replicas": 3
+        },
+        "order_service": {
+          "port": 8002,
+          "database": "mysql://orders",
+          "dependencies": ["user-service", "payment-service"],
+          "replicas": 3
+        },
+        "payment_service": {
+          "port": 8003,
+          "external_api": "https://api.payment-provider.com",
+          "replicas": 2,
+          "critical": true
+        }
+      }
+    },
+    "communication": {
+      "sync": "REST API / gRPC",
+      "async": "Message Queue (Kafka)",
+      "service_discovery": "Kubernetes DNS"
+    }
+  }
+}

@@ -1,0 +1,504 @@
+{
+  "openapi_specification": {
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Order Service API",
+      "version": "2.1.0",
+      "description": "API for managing orders in the ecommerce microservices platform",
+      "contact": {
+        "name": "Order Service Team",
+        "email": "order-team@company.com"
+      }
+    },
+    "servers": [
+      {
+        "url": "https://api.company.com/order-service",
+        "description": "Production environment"
+      },
+      {
+        "url": "https://staging-api.company.com/order-service",
+        "description": "Staging environment"
+      }
+    ],
+    "components": {
+      "schemas": {
+        "Order": {
+          "type": "object",
+          "required": [
+            "id",
+            "user_id",
+            "items",
+            "status",
+            "created_at"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Unique order identifier"
+            },
+            "user_id": {
+              "type": "string",
+              "description": "ID of the user who placed the order"
+            },
+            "items": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/components/schemas/OrderItem"
+              }
+            },
+            "total_amount": {
+              "type": "number",
+              "format": "decimal",
+              "minimum": 0
+            },
+            "currency": {
+              "type": "string",
+              "enum": [
+                "USD",
+                "EUR",
+                "GBP"
+              ],
+              "default": "USD"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "pending",
+                "confirmed",
+                "processing",
+                "shipped",
+                "delivered",
+                "cancelled"
+              ]
+            },
+            "shipping_address": {
+              "$ref": "#/components/schemas/Address"
+            },
+            "billing_address": {
+              "$ref": "#/components/schemas/Address"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "updated_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "estimated_delivery": {
+              "type": "string",
+              "format": "date",
+              "description": "Estimated delivery date (v2.1+)"
+            }
+          },
+          "x-deprecated-fields": [
+            {
+              "name": "order_date",
+              "replacement": "created_at",
+              "version_deprecated": "2.0.0"
+            },
+            {
+              "name": "shipping_cost",
+              "replacement": "include in total_amount",
+              "version_deprecated": "2.1.0"
+            }
+          ]
+        },
+        "OrderItem": {
+          "type": "object",
+          "required": [
+            "product_id",
+            "quantity",
+            "price"
+          ],
+          "properties": {
+            "product_id": {
+              "type": "string"
+            },
+            "quantity": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "price": {
+              "type": "number",
+              "format": "decimal",
+              "minimum": 0
+            },
+            "product_name": {
+              "type": "string",
+              "description": "Denormalized product name (v2.1+)"
+            }
+          }
+        },
+        "Address": {
+          "type": "object",
+          "required": [
+            "street",
+            "city",
+            "postal_code",
+            "country"
+          ],
+          "properties": {
+            "street": {
+              "type": "string"
+            },
+            "city": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "postal_code": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            }
+          }
+        },
+        "Error": {
+          "type": "object",
+          "required": [
+            "code",
+            "message"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Error code for programmatic handling"
+            },
+            "message": {
+              "type": "string",
+              "description": "Human-readable error message"
+            },
+            "details": {
+              "type": "object",
+              "description": "Additional error context"
+            }
+          }
+        }
+      },
+      "responses": {
+        "BadRequest": {
+          "description": "Bad request - validation failed",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Error"
+              }
+            }
+          }
+        },
+        "NotFound": {
+          "description": "Resource not found",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Error"
+              }
+            }
+          }
+        },
+        "ServerError": {
+          "description": "Internal server error",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Error"
+              }
+            }
+          }
+        }
+      }
+    },
+    "paths": {
+      "/orders": {
+        "post": {
+          "summary": "Create a new order",
+          "operationId": "createOrder",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "user_id",
+                    "items",
+                    "shipping_address"
+                  ],
+                  "properties": {
+                    "user_id": {
+                      "type": "string"
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/OrderItem"
+                      }
+                    },
+                    "shipping_address": {
+                      "$ref": "#/components/schemas/Address"
+                    },
+                    "billing_address": {
+                      "$ref": "#/components/schemas/Address"
+                    },
+                    "coupon_code": {
+                      "type": "string",
+                      "description": "Optional coupon code (v2.1+)"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Order created successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Order"
+                  }
+                }
+              }
+            },
+            "400": {
+              "$ref": "#/components/responses/BadRequest"
+            }
+          }
+        },
+        "get": {
+          "summary": "List orders for user",
+          "operationId": "listOrders",
+          "parameters": [
+            {
+              "name": "user_id",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "status",
+              "in": "query",
+              "schema": {
+                "type": "string",
+                "enum": [
+                  "pending",
+                  "confirmed",
+                  "shipped",
+                  "delivered"
+                ]
+              },
+              "description": "Filter by order status (v2.1+)"
+            },
+            {
+              "name": "limit",
+              "in": "query",
+              "schema": {
+                "type": "integer",
+                "default": 20,
+                "maximum": 100
+              }
+            },
+            {
+              "name": "offset",
+              "in": "query",
+              "schema": {
+                "type": "integer",
+                "default": 0
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "List of orders",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "orders": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/Order"
+                        }
+                      },
+                      "total_count": {
+                        "type": "integer"
+                      },
+                      "has_more": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/orders/{order_id}": {
+        "get": {
+          "summary": "Get order by ID",
+          "operationId": "getOrder",
+          "parameters": [
+            {
+              "name": "order_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Order details",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Order"
+                  }
+                }
+              }
+            },
+            "404": {
+              "$ref": "#/components/responses/NotFound"
+            }
+          }
+        },
+        "put": {
+          "summary": "Update order",
+          "operationId": "updateOrder",
+          "deprecated": true,
+          "x-sunset-date": "2024-12-31",
+          "x-migration": "Use PATCH request instead",
+          "parameters": [
+            {
+              "name": "order_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Order updated",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Order"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "patch": {
+          "summary": "Partially update order",
+          "operationId": "patchOrder",
+          "parameters": [
+            {
+              "name": "order_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "shipping_address": {
+                      "$ref": "#/components/schemas/Address"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Order updated",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Order"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "x-backward-compatibility": {
+      "v2.0_to_v2.1_changes": [
+        {
+          "type": "field_added",
+          "field": "estimated_delivery",
+          "in": "Order",
+          "impact": "NON_BREAKING - optional field added"
+        },
+        {
+          "type": "field_added",
+          "field": "product_name",
+          "in": "OrderItem",
+          "impact": "NON_BREAKING - optional field added for denormalization"
+        },
+        {
+          "type": "parameter_added",
+          "parameter": "status",
+          "in": "/orders GET",
+          "impact": "NON_BREAKING - optional filter parameter"
+        },
+        {
+          "type": "parameter_added",
+          "parameter": "coupon_code",
+          "in": "/orders POST",
+          "impact": "NON_BREAKING - optional request field"
+        },
+        {
+          "type": "field_deprecated",
+          "field": "shipping_cost",
+          "deprecation_date": "2024-02-07",
+          "sunset_date": "2024-08-07",
+          "impact": "DEPRECATED - value now included in total_amount"
+        }
+      ],
+      "v1_to_v2_breaking_changes": [
+        {
+          "change": "Response structure changed",
+          "example": "status changed from integer codes to string constants",
+          "migration": "Update status checks from 0,1,2 to 'pending','confirmed','shipped'"
+        }
+      ]
+    }
+  }
+}

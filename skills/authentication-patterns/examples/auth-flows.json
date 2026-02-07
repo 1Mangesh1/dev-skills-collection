@@ -1,0 +1,50 @@
+{
+  "oauth_example": {
+    "scenario": "User logs in with Google to web application",
+    "step_by_step": {
+      "1_redirect": {
+        "url": "https://accounts.google.com/o/oauth2/v2/auth",
+        "params": {
+          "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
+          "redirect_uri": "https://yourapp.com/auth/callback",
+          "response_type": "code",
+          "scope": "openid profile email",
+          "state": "random_string_123"
+        }
+      },
+      "2_user_login": "User enters Google credentials and grants permission",
+      "3_redirect_back": {
+        "url": "https://yourapp.com/auth/callback?code=4/CODE&state=random_string_123"
+      },
+      "4_exchange_token": {
+        "url": "https://oauth2.googleapis.com/token",
+        "method": "POST",
+        "body": {
+          "client_id": "YOUR_CLIENT_ID",
+          "client_secret": "YOUR_SECRET",
+          "code": "4/CODE",
+          "grant_type": "authorization_code",
+          "redirect_uri": "https://yourapp.com/auth/callback"
+        }
+      },
+      "5_token_response": {
+        "access_token": "ya29.a0AfH6SMBx...",
+        "expires_in": 3599,
+        "refresh_token": "1//0gV...",
+        "scope": "openid https://www.googleapis.com/auth/userinfo.profile",
+        "token_type": "Bearer",
+        "id_token": "eyJhbGciOiJSUzI1NiI..."
+      }
+    }
+  },
+  "jwt_example": {
+    "scenario": "API request with JWT bearer token",
+    "request": {
+      "method": "GET",
+      "url": "https://api.example.com/user/profile",
+      "headers": {
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1MjA4MTBmNjkwYzliNDAyIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNzMzODUzNjIyfQ.4Adcj0u9wMJANhcwq1tPVQVzxlXWmXCDvmswf0+7QqY"
+      }
+    }
+  }
+}

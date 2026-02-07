@@ -1,0 +1,119 @@
+{
+  "metrics_snapshot": {
+    "timestamp": "2024-02-07T10:30:45Z",
+    "host": "server-01",
+    "environment": "production",
+    "system": {
+      "cpu": {
+        "percent": 45.2,
+        "cores": 8,
+        "load_1min": 2.5,
+        "load_5min": 2.8,
+        "load_15min": 2.3
+      },
+      "memory": {
+        "total_mb": 16384,
+        "used_mb": 8192,
+        "available_mb": 8192,
+        "percent": 50.0,
+        "swap_used_mb": 256,
+        "swap_total_mb": 4096
+      },
+      "disk": {
+        "/": {
+          "total_gb": 100,
+          "used_gb": 65,
+          "free_gb": 35,
+          "percent": 65
+        },
+        "/var": {
+          "total_gb": 50,
+          "used_gb": 25,
+          "free_gb": 25,
+          "percent": 50
+        }
+      }
+    },
+    "network": {
+      "bytes_sent": 1073741824,
+      "bytes_received": 2147483648,
+      "packets_sent": 1048576,
+      "packets_received": 2097152,
+      "errors_in": 5,
+      "errors_out": 2,
+      "dropped_in": 0,
+      "dropped_out": 0
+    },
+    "application": {
+      "http_requests": {
+        "total": 145000,
+        "rate_per_sec": 1200,
+        "errors_4xx": 850,
+        "errors_5xx": 12
+      },
+      "api_latency_ms": {
+        "p50": 45,
+        "p95": 250,
+        "p99": 850,
+        "max": 5000
+      },
+      "database": {
+        "connections_active": 45,
+        "connections_idle": 5,
+        "queries_per_sec": 450,
+        "slow_queries_count": 3
+      },
+      "cache": {
+        "hits": 85000,
+        "misses": 15000,
+        "hit_rate_percent": 85.0
+      }
+    },
+    "processes": [
+      {
+        "pid": 1234,
+        "name": "java",
+        "cpu_percent": 25,
+        "memory_mb": 2048,
+        "memory_percent": 12.5
+      },
+      {
+        "pid": 5678,
+        "name": "nginx",
+        "cpu_percent": 8,
+        "memory_mb": 128,
+        "memory_percent": 0.78
+      },
+      {
+        "pid": 9012,
+        "name": "redis-server",
+        "cpu_percent": 5,
+        "memory_mb": 256,
+        "memory_percent": 1.56
+      }
+    ]
+  },
+  "alerts": {
+    "triggered": [
+      {
+        "alert_name": "HighCPUUsage",
+        "severity": "WARNING",
+        "message": "CPU usage is 45% (threshold: 70%)",
+        "timestamp": "2024-02-07T10:30:45Z"
+      },
+      {
+        "alert_name": "DatabaseConnectionPool",
+        "severity": "INFO",
+        "message": "50 out of 100 connections in use",
+        "timestamp": "2024-02-07T10:30:40Z"
+      }
+    ],
+    "resolved": [
+      {
+        "alert_name": "DiskSpaceWarning",
+        "timestamp": "2024-02-07T10:25:00Z",
+        "resolution": "Cleanup completed, freed 15GB"
+      }
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "markdown_example": {
+    "file": "API.md",
+    "sections": {
+      "overview": "HTTP API documentation",
+      "endpoints": 5,
+      "examples": 12,
+      "estimated_read_time": "8 minutes",
+      "formatting": {
+        "headings": "ATX style",
+        "code_blocks": "syntax-highlighted",
+        "tables": "for comparisons"
+      }
+    }
+  }
+}

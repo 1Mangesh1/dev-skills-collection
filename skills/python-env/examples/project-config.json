@@ -1,0 +1,12 @@
+{
+  "python_env_example": {
+    "project": "my-python-app",
+    "python_version": "3.11.0",
+    "virtual_env": ".venv",
+    "dependencies": {
+      "django": "4.2.0",
+      "djangorestframework": "3.14.0",
+      "pytest": "7.3.1"
+    }
+  }
+}

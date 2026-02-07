@@ -1,0 +1,16 @@
+{
+  "test_example": {
+    "scenario": "User registration flow",
+    "test_case": "test_user_registration_with_valid_data",
+    "steps": [
+      {"action": "POST /api/register", "data": {"email": "test@example.com", "password": "secure123"}},
+      {"action": "Assert", "expectation": "Response status 201"},
+      {"action": "Assert", "expectation": "User created in database"},
+      {"action": "Assert", "expectation": "Confirmation email sent"}
+    ],
+    "coverage_impact": {
+      "before": 75,
+      "after": 79
+    }
+  }
+}

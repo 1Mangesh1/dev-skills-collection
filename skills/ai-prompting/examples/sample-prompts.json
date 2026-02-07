@@ -1,0 +1,38 @@
+{
+  "prompt_examples": [
+    {
+      "id": 1,
+      "name": "Code Generation Prompt",
+      "technique": "Few-shot + Structured",
+      "domain": "Python",
+      "prompt": "You are an expert Python developer.\n\nWrite a function that:\n1. Takes a list of URLs\n2. Fetches them in parallel\n3. Returns results as JSON\n\nExample:\n```python\ndef fetch_urls(urls):\n    # Your implementation\n    pass\n```\n\nRequirements:\n- Use asyncio\n- Include error handling\n- Add type hints",
+      "quality_score": 8.5,
+      "success_rate": 0.92
+    },
+    {
+      "id": 2,
+      "name": "Analysis Prompt",
+      "technique": "Chain-of-Thought",
+      "domain": "Architecture",
+      "prompt": "Analyze this architecture decision:\n\n'We chose PostgreSQL over MongoDB for our user service because...'",
+      "quality_score": 7.8,
+      "success_rate": 0.89
+    },
+    {
+      "id": 3,
+      "name": "Classification Prompt",
+      "technique": "Few-shot",
+      "domain": "Sentiment Analysis",
+      "prompt": "Classify sentiment as positive, negative, or neutral.\n\nExamples:\n- 'Amazing product!' → positive\n- 'Terrible experience' → negative\n- 'It's okay' → neutral\n\nClassify: 'Works as expected'",
+      "quality_score": 9.1,
+      "success_rate": 0.95
+    }
+  ],
+  "metrics": {
+    "total_prompts_tested": 342,
+    "avg_quality_score": 8.2,
+    "most_effective_technique": "Few-shot + Chain-of-Thought combined",
+    "avg_tokens_per_prompt": 156,
+    "cost_per_1k_tokens": 0.003
+  }
+}

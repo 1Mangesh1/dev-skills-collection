@@ -1,0 +1,20 @@
+{
+  "graphql_example": {
+    "endpoint": "https://api.github.com/graphql",
+    "query": "Get repository stars",
+    "request": {
+      "query": "{repository(owner: \"facebook\", name: \"react\") { name stargazers { totalCount }}}",
+      "variables": {}
+    },
+    "response": {
+      "data": {
+        "repository": {
+          "name": "react",
+          "stargazers": {
+            "totalCount": 200000
+          }
+        }
+      }
+    }
+  }
+}

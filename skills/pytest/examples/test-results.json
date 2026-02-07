@@ -1,0 +1,22 @@
+{
+  "pytest_example": {
+    "test_file": "test_calculator.py",
+    "tests": [
+      {
+        "name": "test_addition",
+        "status": "passed",
+        "duration": "0.001s"
+      },
+      {
+        "name": "test_division_by_zero",
+        "status": "passed",
+        "duration": "0.002s"
+      }
+    ],
+    "coverage": {
+      "lines": 85,
+      "branches": 78,
+      "functions": 90
+    }
+  }
+}

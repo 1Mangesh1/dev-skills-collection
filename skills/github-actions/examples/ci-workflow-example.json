@@ -1,0 +1,43 @@
+{
+  "ci_workflow_example": {
+    "name": "Test and Deploy",
+    "trigger": "push to main or pull_request",
+    "jobs": {
+      "test": {
+        "runs-on": "ubuntu-latest",
+        "steps": [
+          "Check out code",
+          "Setup Node 20.x",
+          "Install dependencies",
+          "Run linter",
+          "Run unit tests",
+          "Generate coverage report"
+        ],
+        "duration": "2m15s",
+        "status": "✓ passed"
+      },
+      "build": {
+        "runs-on": "ubuntu-latest",
+        "dependencies": ["test"],
+        "steps": [
+          "Build application",
+          "Create Docker image",
+          "Push to registry"
+        ],
+        "duration": "5m30s",
+        "status": "✓ passed"
+      },
+      "deploy": {
+        "runs-on": "ubuntu-latest",
+        "dependencies": ["build"],
+        "steps": [
+          "Deploy to staging",
+          "Run smoke tests",
+          "Deploy to production"
+        ],
+        "duration": "3m10s",
+        "status": "✓ passed"
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "migration_example": {
+    "v1_endpoint": "GET /api/v1/users/123",
+    "v2_endpoint": "GET /api/v2/users/123",
+    "v1_response": {
+      "userId": 123,
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    "v2_response": {
+      "id": 123,
+      "firstName": "John",
+      "lastName": "Doe",
+      "fullName": "John Doe",
+      "createdAt": "2025-01-15T10:30:00Z"
+    },
+    "migration_steps": [
+      "1. Update URL from /v1/ to /v2/",
+      "2. Update field references (userId → id)",
+      "3. Handle new fields (fullName, createdAt)",
+      "4. Test error handling",
+      "5. Deploy to staging first"
+    ]
+  }
+}

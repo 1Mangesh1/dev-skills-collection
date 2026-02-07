@@ -1,0 +1,20 @@
+{
+  "tmux_session": {
+    "name": "dev",
+    "windows": [
+      {
+        "name": "editor",
+        "command": "vim"
+      },
+      {
+        "name": "shell",
+        "panes": 2,
+        "command": "bash"
+      },
+      {
+        "name": "test",
+        "command": "npm test -- --watch"
+      }
+    ]
+  }
+}

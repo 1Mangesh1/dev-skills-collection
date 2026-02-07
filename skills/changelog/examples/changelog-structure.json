@@ -1,0 +1,27 @@
+{
+  "changelog_example": {
+    "format": "Keep a Changelog + Semantic Versioning",
+    "latest_release": {
+      "version": "2.1.0",
+      "date": "2024-01-20",
+      "added": [
+        "Dark mode support",
+        "Export to CSV feature",
+        "New API endpoint /users/{id}/preferences"
+      ],
+      "fixed": [
+        "Memory leak in WebSocket handler (#342)",
+        "Race condition in database migration (#311)"
+      ],
+      "breaking_changes": []
+    },
+    "previous_release": {
+      "version": "2.0.0",
+      "date": "2024-01-10",
+      "breaking_changes": [
+        "Removed deprecated /v1/users endpoint",
+        "Changed response format for /products endpoint"
+      ]
+    }
+  }
+}

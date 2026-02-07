@@ -1,0 +1,16 @@
+{
+  "slow_query_example": {
+    "query": "SELECT u.*, o.* FROM users u JOIN orders o ON u.id = o.user_id WHERE u.email = '%@example.com' ORDER BY o.created_at",
+    "performance": {
+      "current": "2500ms (Seq Scan on entire users table)",
+      "bottleneck": "Missing index on users.email"
+    },
+    "optimization": {
+      "step_1": "CREATE INDEX idx_email ON users(email);",
+      "step_2": "CREATE INDEX idx_user_id ON orders(user_id);",
+      "result": "50ms (52x faster)",
+      "explain_before": "Seq Scan on users  (cost=0.00..50000 rows=1000000)",
+      "explain_after": "Index Scan using idx_email on users  (cost=0.00..20 rows=10)"
+    }
+  }
+}

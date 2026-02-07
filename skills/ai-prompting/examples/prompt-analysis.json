@@ -1,0 +1,21 @@
+{
+  "prompt": "You are a helpful Python expert. Explain what decorators are.",
+  "quality_score": 65,
+  "issues": [
+    {
+      "type": "missing_context",
+      "severity": "low",
+      "suggestion": "Add context about audience level (beginner vs advanced)"
+    },
+    {
+      "type": "no_format_spec", 
+      "severity": "low",
+      "suggestion": "Specify desired output format (with code examples, markdown, etc)"
+    }
+  ],
+  "recommendation": "Good prompt - consider improvements",
+  "improvements": {
+    "original": "You are a helpful Python expert. Explain what decorators are.",
+    "enhanced": "You are an experienced Python instructor. Explain Python decorators to an intermediate Python developer.\nProvide:\n1. Clear definition\n2. 2-3 practical examples with code\n3. Common use cases\n4. Performance considerations\nFormat as markdown with code blocks."
+  }
+}

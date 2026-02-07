@@ -1,0 +1,18 @@
+{
+  "environment_debug": {
+    "shell": "zsh",
+    "environment_variables": {
+      "HOME": "/Users/username",
+      "PATH": "/usr/local/bin:/usr/bin:/bin",
+      "NODE_VERSION": "18.14.0",
+      "PYTHON_VERSION": "3.11.0"
+    },
+    "issues": {
+      "python_not_found": {
+        "error": "which: python: not found",
+        "cause": "python not in PATH",
+        "solution": "Symlink python3 or adjust PATH"
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "oneliners_examples": [
+    {
+      "category": "File Operations",
+      "oneliner": "find . -name '*.js' | xargs wc -l | tail -1",
+      "description": "Count total lines in all JS files"
+    },
+    {
+      "category": "Git",
+      "oneliner": "git log --all --graph --oneline --decorate",
+      "description": "Pretty print git history"
+    },
+    {
+      "category": "Docker",
+      "oneliner": "docker ps -q | xargs docker stop",
+      "description": "Stop all running containers"
+    },
+    {
+      "category": "Network",
+      "oneliner": "lsof -i :8080 | grep LISTEN",
+      "description": "Find process using port 8080"
+    }
+  ]
+}
