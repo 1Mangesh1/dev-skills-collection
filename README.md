@@ -12,7 +12,7 @@ Comprehensive AI skills collection for developer productivity - **41 powerful to
 - 🔐 **Security** - Secret scanning, dependency audits, vulnerability detection
 - 📚 **References** - 100+ comprehensive guides and patterns
 - 🤖 **AI-Native** - Works with Claude, Cursor, Windsurf, Cline, and more
-- 📦 **NPM Install** - Easy installation and integration
+- 📦 **Git-Based** - Easy cloning and integration with AI agents
 - 🎯 **Production-Ready** - Used across real-world projects
 
 ## How It Works
@@ -56,106 +56,138 @@ Comprehensive AI skills collection for developer productivity - **41 powerful to
 
 ## Installation
 
-### Option 1: NPM Install (Recommended)
+### Quick Install (Recommended)
+
+Use the `skills` CLI from [skills.sh](https://skills.sh) to install all 41 skills:
 
 ```bash
-npm install @1mangesh1/dev-skills-collection
-yarn add @1mangesh1/dev-skills-collection
-pnpm add @1mangesh1/dev-skills-collection
+npx skills add 1Mangesh1/dev-skills-collection
 ```
 
-### Option 2: Copy Individual Skills
+This command:
+- Downloads all 41 skills instantly
+- Configures skills for your AI agent (Claude, Cursor, Windsurf, etc.)
+- Enables automatic skill activation based on your requests
+- No manual setup required!
+
+### How to Use After Installation
+
+Once installed, just ask your AI agent naturally:
 
 ```bash
-# Copy a specific skill to your project
-cp -r node_modules/@1mangesh1/dev-skills-collection/skills/jest-vitest ./.agents/skills/
+# In Claude, Cursor, or Windsurf:
+"How do I use Jest?" → jest-vitest skill activates
+"Setup AWS infrastructure" → aws-cli + terraform skills activate
+"Improve git workflow" → git-hooks + git-emoji skills activate
+"Scan for secrets" → secret-scanner skill activates
 ```
 
-### Option 3: Git Clone
+Your AI agent automatically loads the right skill(s) for your request!
+
+### Verify Installation
+
+```bash
+# List all installed skills
+npx skills list
+
+# View a specific skill's documentation
+npx skills view jest-vitest
+```
+
+### Manual Setup (Alternative)
+
+If you prefer git clone:
 
 ```bash
 git clone https://github.com/1Mangesh1/dev-skills-collection.git
 cd dev-skills-collection
-npm install
+
+# Copy skills directory to your configuration
+cp -r skills/ ~/.claude/skills/
 ```
+
+## Quick Start Examples
 
 ## Quick Start Examples
 
 ### Example 1: Setup Testing in Your Project
 
-**Activation Phrase**: "Help me set up testing with Jest and Vitest"
+**Installation**: `npx skills add 1Mangesh1/dev-skills-collection`
 
-```bash
-# AI will suggest:
-# 1. Copy jest-vitest skill to .agents/skills/
-# 2. Review testing patterns in SKILL.md
-# 3. Generate test files with examples
-# 4. Setup testing scripts in package.json
+**Ask your AI agent**:
+```
+"Help me setup Jest and Vitest testing for my project"
 ```
 
-**Result**: Your project now has:
-- Testing framework configuration
-- Example test cases
-- CI/CD integration ready
-- Best practices documented
+**What happens**:
+1. The jest-vitest skill is automatically loaded
+2. AI provides testing patterns, best practices, and configuration
+3. AI helps you write your first test files
+4. You get framework setup guidance and examples
+
+**Result**: Jest/Vitest configured with professional test structure
 
 ### Example 2: Manage AWS Infrastructure
 
-**Activation Phrase**: "Help me manage AWS resources with Terraform and AWS CLI"
-
-```bash
-# AI will provide:
-# 1. AWS CLI command reference
-# 2. Terraform infrastructure patterns
-# 3. Security best practices
-# 4. Example configurations
+**Ask your AI agent**:
+```
+"Help me setup AWS infrastructure with Terraform and AWS CLI"
 ```
 
-**Create infrastructure safely**:
+**What happens**:
+1. aws-cli and terraform skills load automatically
+2. AI guides you through AWS best practices
+3. AI helps you write safe infrastructure as code
+4. You get security and production deployment patterns
+
+**The AI can now help with**:
 ```bash
-# Load aws-cli skill for AWS commands
 aws s3 ls
 aws ec2 describe-instances
-
-# Load terraform skill for IaC
 terraform init
 terraform plan
 terraform apply
 ```
 
+**Result**: Safe, documented infrastructure managed through AI guidance
+
 ### Example 3: Git Workflow Setup
 
-**Activation Phrase**: "Setup professional git hooks and commit conventions"
-
-```bash
-# AI will configure:
-# 1. Pre-commit hooks from git-hooks skill
-# 2. Commit emoji conventions from git-emoji skill
-# 3. Advanced workflows from git-advanced skill
-# 4. GitHub Actions from github-actions skill
+**Ask your AI agent**:
+```
+"Setup professional git hooks, emoji commits, and advanced git workflows"
 ```
 
-**Professional commits**:
+**What happens**:
+1. git-hooks, git-emoji, and git-advanced skills load
+2. AI guides you through professional git practices
+3. AI helps configure pre-commit hooks and commit standards
+4. You get team workflow patterns and GitHub Actions integration
+
+**Your commits become professional**:
 ```bash
-# With git-emoji skill
+# AI helps you write semantic commits
 git commit -m "🎨 refactor: improve code structure"
 git commit -m "✨ feat: add new authentication flow"
 git commit -m "🐛 fix: resolve memory leak in cache"
 ```
 
+**Result**: Team-wide consistent, professional git workflows
+
 ### Example 4: Database Migration Management
 
-**Activation Phrase**: "Help me manage database migrations safely"
-
-```bash
-# AI will provide:
-# 1. sql-migrations best practices
-# 2. Migration patterns and strategies
-# 3. Rollback procedures
-# 4. Version control integration
+**Ask your AI agent**:
+```
+"Help me setup and manage database migrations safely"
 ```
 
-**Result**: Safe, traceable database changes with automated rollback capability
+**What happens**:
+1. sql-migrations skill loads automatically
+2. AI provides migration best practices and patterns
+3. AI guides safe database schema changes
+4. You get rollback procedures and version control integration
+
+**Result**: Safe, traceable database changes with AI-guided automation
 
 ## Available Skills (41 Total)
 
