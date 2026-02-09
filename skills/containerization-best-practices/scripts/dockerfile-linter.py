@@ -6,6 +6,8 @@ Checks for security issues, performance, and optimization recommendations.
 
 import re
 import json
+import datetime
+import sys
 from typing import List, Dict
 
 class DockerfileLinter:
@@ -199,7 +201,7 @@ class DockerfileLinter:
                 medium.append(issue)
         
         return {
-            'timestamp': __import__('datetime').datetime.utcnow().isoformat(),
+            'timestamp': datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None).isoformat(),
             'file': filepath,
             'total_issues': len(all_issues),
             'critical_issues': len(critical),
@@ -210,7 +212,6 @@ class DockerfileLinter:
         }
 
 def main():
-    import sys
     if len(sys.argv) < 2:
         print("Usage: dockerfile-linter.py <Dockerfile>")
         sys.exit(1)
