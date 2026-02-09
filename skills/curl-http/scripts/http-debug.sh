@@ -23,11 +23,11 @@ echo ""
 # Extract components from URL
 PROTOCOL=$(echo "$URL" | cut -d: -f1)
 DOMAIN=$(echo "$URL" | sed 's|^[^:]*://||' | cut -d/ -f1)
-PATH=$(echo "$URL" | sed 's|^[^:]*://[^/]*||')
+URL_PATH=$(echo "$URL" | sed 's|^[^:]*://[^/]*||')
 
 echo "Protocol: $PROTOCOL"
 echo "Domain: $DOMAIN"
-echo "Path: ${PATH:-/}"
+echo "Path: ${URL_PATH:-/}"
 echo ""
 
 # Resolve DNS
@@ -37,17 +37,17 @@ dig +short "$DOMAIN" | head -5
 echo ""
 echo "==================== HTTP Headers ===================="
 
-# Build curl command
-CURL_CMD="curl -i -X $METHOD"
+# Build curl command arguments array
+CURL_ARGS=("-i" "-X" "$METHOD")
 
 if [ -n "$DATA" ]; then
-    CURL_CMD="$CURL_CMD -d '$DATA' -H 'Content-Type: application/json'"
+    CURL_ARGS+=("-d" "$DATA" "-H" "Content-Type: application/json")
 fi
 
 # Add verbose output
-CURL_CMD="$CURL_CMD -w '\n\nResponse Time: %{time_total}s\n' '$URL'"
+CURL_ARGS+=("-w" "\n\nResponse Time: %{time_total}s\n" "$URL")
 
-echo "Command: $CURL_CMD"
+echo "Command: curl ${CURL_ARGS[*]}"
 echo ""
 echo "==================== Response ===================="
-eval "$CURL_CMD"
+curl "${CURL_ARGS[@]}"
