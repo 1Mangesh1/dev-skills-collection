@@ -186,9 +186,17 @@ class DockerfileLinter:
         all_issues.extend(self.check_entrypoint(lines))
         
         # Categorize
-        critical = [i for i in all_issues if i.get('severity') == 'CRITICAL']
-        high = [i for i in all_issues if i.get('severity') == 'HIGH']
-        medium = [i for i in all_issues if i.get('severity') == 'MEDIUM']
+        critical = []
+        high = []
+        medium = []
+        for issue in all_issues:
+            severity = issue.get('severity')
+            if severity == 'CRITICAL':
+                critical.append(issue)
+            elif severity == 'HIGH':
+                high.append(issue)
+            elif severity == 'MEDIUM':
+                medium.append(issue)
         
         return {
             'timestamp': __import__('datetime').datetime.utcnow().isoformat(),
