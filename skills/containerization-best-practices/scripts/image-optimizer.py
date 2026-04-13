@@ -5,6 +5,7 @@ Produces smaller, more secure container images.
 """
 
 import json
+import subprocess
 from typing import Dict
 
 class ImageOptimizer:
@@ -197,7 +198,6 @@ ENTRYPOINT ["./app"]
     
     def analyze_image_size(self, image_name: str) -> Dict:
         """Analyze Docker image size."""
-        import subprocess
         
         try:
             result = subprocess.run(

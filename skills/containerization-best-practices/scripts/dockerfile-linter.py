@@ -6,6 +6,8 @@ Checks for security issues, performance, and optimization recommendations.
 
 import re
 import json
+import datetime
+import sys
 from typing import List, Dict
 
 class DockerfileLinter:
@@ -186,12 +188,20 @@ class DockerfileLinter:
         all_issues.extend(self.check_entrypoint(lines))
         
         # Categorize
-        critical = [i for i in all_issues if i.get('severity') == 'CRITICAL']
-        high = [i for i in all_issues if i.get('severity') == 'HIGH']
-        medium = [i for i in all_issues if i.get('severity') == 'MEDIUM']
+        critical = []
+        high = []
+        medium = []
+        for issue in all_issues:
+            severity = issue.get('severity')
+            if severity == 'CRITICAL':
+                critical.append(issue)
+            elif severity == 'HIGH':
+                high.append(issue)
+            elif severity == 'MEDIUM':
+                medium.append(issue)
         
         return {
-            'timestamp': __import__('datetime').datetime.utcnow().isoformat(),
+            'timestamp': datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None).isoformat(),
             'file': filepath,
             'total_issues': len(all_issues),
             'critical_issues': len(critical),
@@ -202,7 +212,6 @@ class DockerfileLinter:
         }
 
 def main():
-    import sys
     if len(sys.argv) < 2:
         print("Usage: dockerfile-linter.py <Dockerfile>")
         sys.exit(1)
