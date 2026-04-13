@@ -1,15 +1,13 @@
 ---
 name: npm-scripts
-description: npm, yarn, and pnpm package management, scripts, workspaces, and publishing. Use when user asks to "run npm script", "setup package.json", "publish package", "manage dependencies", "npm workspaces", "monorepo setup", or package manager operations.
+description: npm, yarn, and pnpm package management, scripts, workspaces, and publishing. Use when user asks to "run npm script", "setup package.json", "publish package", "manage dependencies", "npm workspaces", "monorepo setup", "npm audit", "lock file", "npmrc config", "npm registry", "debug npm script", "npx", "cross-platform script", or package manager operations.
 ---
 
-# npm/yarn/pnpm
-
-Package management, scripts, and workspaces.
+# npm Scripts and Package Management
 
 ## Package.json Scripts
 
-### Common Scripts
+### Common Script Patterns
 
 ```json
 {
@@ -23,13 +21,18 @@ Package management, scripts, and workspaces.
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",
     "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
-    "prepare": "husky"
+    "clean": "rm -rf dist node_modules/.cache",
+    "prepare": "husky",
+    "validate": "npm-run-all --parallel lint typecheck test:coverage"
   }
 }
 ```
 
-### Script Chaining
+### Pre/Post Hooks and Lifecycle Scripts
+
+npm runs `pre<script>` before and `post<script>` after any script automatically:
 
 ```json
 {
@@ -38,61 +41,146 @@ Package management, scripts, and workspaces.
     "build": "tsc",
     "postbuild": "npm run copy-assets",
     "clean": "rm -rf dist",
-    "copy-assets": "cp -r assets dist/"
+    "copy-assets": "cp -r assets dist/",
+    "prepare": "husky",
+    "prepublishOnly": "npm run build && npm test",
+    "postinstall": "patch-package"
   }
 }
 ```
 
-### Run Scripts in Sequence/Parallel
+Built-in lifecycle scripts:
+- `prepare` -- runs after `npm install` and before `npm publish`
+- `prepublishOnly` -- runs before `npm publish` only (not on install)
+- `preinstall` / `postinstall` -- before/after `npm install`
+- `prepack` / `postpack` -- before/after tarball is created
+
+### Cross-Platform Scripts
+
+```json
+{
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "shx": "^0.3.4",
+    "npm-run-all2": "^6.0.0"
+  },
+  "scripts": {
+    "build": "cross-env NODE_ENV=production webpack",
+    "clean": "shx rm -rf dist",
+    "dev": "run-p watch:css watch:js serve",
+    "ci": "run-s lint typecheck test build",
+    "lint:all": "run-p lint:js lint:css lint:html"
+  }
+}
+```
+
+- `run-s` -- sequential; `run-p` -- parallel
+- Glob patterns: `run-p lint:*` runs all scripts matching `lint:`
+
+### Environment Variables
+
+```json
+{
+  "scripts": {
+    "build:staging": "cross-env NODE_ENV=staging API_URL=https://staging.api.com vite build",
+    "build:prod": "cross-env NODE_ENV=production vite build"
+  }
+}
+```
+
+npm exposes package.json fields as `npm_package_*` (e.g., `npm_package_name`, `npm_package_version`).
+
+## npx and bunx
 
 ```bash
-# Sequence (npm-run-all)
-npm-run-all lint test build
-
-# Parallel
-npm-run-all --parallel lint typecheck
-
-# Or use &&
-npm run lint && npm run test
+npx create-next-app@latest my-app    # run without installing
+npx -p typescript tsc --version      # specify package explicitly
+npx vitest                           # run local binary from node_modules/.bin
+bunx create-next-app@latest my-app   # Bun equivalent (faster)
 ```
 
 ## Dependency Management
 
-### Install
-
 ```bash
-npm install              # All dependencies
-npm install lodash       # Add dependency
-npm install -D typescript  # Dev dependency
-npm install -g vercel    # Global
+npm install                  # all deps from package.json
+npm install lodash           # add production dep
+npm install -D typescript    # dev dependency
+npm install lodash@4.17.21   # exact version
+npm install user/repo        # from GitHub
+npm ci                       # clean install from lock file (CI)
 
-# Specific version
-npm install lodash@4.17.21
-npm install lodash@^4.0.0
+npm outdated                 # list outdated packages
+npm update                   # update within semver ranges
+npx npm-check-updates -u     # update package.json beyond ranges
+npm dedupe                   # remove duplicate packages
+npm why lodash               # show why a package is installed
+npm ls lodash                # find installed versions
+
+npm audit                    # check vulnerabilities
+npm audit fix                # auto-fix compatible vulnerabilities
+npm audit --omit=dev         # audit production deps only
 ```
 
-### Update
+### Overrides and Resolutions
 
-```bash
-npm update              # Update within ranges
-npm update lodash       # Specific package
-npx npm-check-updates   # Check for updates
-npx npm-check-updates -u  # Update package.json
+Force a transitive dependency version:
+
+```json
+{
+  "overrides": { "glob": "^10.0.0" }
+}
 ```
 
-### Remove
+Yarn: `"resolutions": { "glob": "^10.0.0" }`. pnpm: `"pnpm": { "overrides": { "glob": "^10.0.0" } }`.
+
+## Lock Files
 
 ```bash
-npm uninstall lodash
-npm uninstall -g vercel
+# ALWAYS commit lock files to version control
+npm ci                        # deterministic install, fails if lock out of sync
+npm ci --ignore-scripts       # skip lifecycle scripts
+pnpm install --frozen-lockfile  # pnpm equivalent
+yarn install --immutable       # yarn equivalent
 ```
 
-### Audit
+Regenerate only when resolving deep conflicts or migrating package managers: delete `node_modules` and lock file, then `npm install`.
+
+## .npmrc Configuration
+
+Project-level `.npmrc` (commit this):
+```ini
+save-exact=true
+registry=https://registry.npmjs.org/
+@mycompany:registry=https://npm.mycompany.com/
+engine-strict=true
+```
+
+User-level `~/.npmrc` (never commit):
+```ini
+//registry.npmjs.org/:_authToken=${NPM_TOKEN}
+//npm.mycompany.com/:_authToken=${COMPANY_NPM_TOKEN}
+```
+
+## Custom Registry Setup
+
+### Verdaccio (local/private)
 
 ```bash
-npm audit
-npm audit fix
-npm audit fix --force  # Breaking changes OK
+npm install -g verdaccio && verdaccio
+npm set registry http://localhost:4873/
+npm publish --registry http://localhost:4873/
+```
+
+### GitHub Packages
+
+```ini
+# .npmrc
+@yourorg:registry=https://npm.pkg.github.com/
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+```
+
+```json
+{ "publishConfig": { "registry": "https://npm.pkg.github.com/" } }
 ```
 
 ## Workspaces (Monorepo)
@@ -103,142 +191,164 @@ npm audit fix --force  # Breaking changes OK
 {
   "name": "my-monorepo",
   "private": true,
-  "workspaces": ["packages/*"]
+  "workspaces": ["packages/*", "apps/*"]
 }
 ```
 
-### Structure
-
-```
-my-monorepo/
-├── package.json
-├── packages/
-│   ├── shared/
-│   │   └── package.json
-│   ├── web/
-│   │   └── package.json
-│   └── api/
-│       └── package.json
-```
-
-### Commands
+### Workspace Commands
 
 ```bash
-# Install all workspaces
-npm install
-
-# Run script in specific workspace
-npm run build -w packages/web
-
-# Run in all workspaces
-npm run test --workspaces
-
-# Add dep to workspace
-npm install lodash -w packages/shared
+npm install                              # install all (hoisted to root)
+npm run build -w packages/shared         # run in specific workspace
+npm run build -w @myorg/shared           # by package name
+npm run test --workspaces                # run across all workspaces
+npm run build -ws --if-present           # skip workspaces missing the script
+npm install zod -w packages/shared       # add dep to workspace
+npm install @myorg/shared -w apps/web    # add workspace as dependency
 ```
+
+### Monorepo Root Scripts
+
+```json
+{
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "dev:web": "npm run dev -w apps/web",
+    "dev:api": "npm run dev -w apps/api"
+  }
+}
+```
+
+npm hoists shared deps to root `node_modules`. Conflicts stay in the workspace's own `node_modules`. Use `npm dedupe` if duplication creeps in.
 
 ## pnpm
 
-### Advantages
-
-- Faster installs
-- Disk space efficient (hard links)
-- Strict node_modules
-
-### Commands
-
 ```bash
-pnpm install
-pnpm add lodash
-pnpm add -D typescript
-pnpm remove lodash
-pnpm run dev
+pnpm install                   # install all
+pnpm add lodash                # add dep
+pnpm add -D typescript         # dev dep
+pnpm dlx create-next-app       # like npx
 ```
-
-### Workspaces
 
 ```yaml
 # pnpm-workspace.yaml
 packages:
   - 'packages/*'
+  - 'apps/*'
 ```
 
 ```bash
-pnpm -F web run build     # Filter by name
-pnpm -r run build         # All workspaces
+pnpm -F web run build          # filter by name
+pnpm -r run build              # all workspaces
+pnpm -r --parallel run dev     # all in parallel
+pnpm -F web... run build       # web and its dependencies
 ```
 
 ## yarn
 
-### Commands
-
 ```bash
-yarn                     # Install
-yarn add lodash
-yarn add -D typescript
-yarn remove lodash
-yarn dev
-```
-
-### Workspaces
-
-```json
-{
-  "workspaces": ["packages/*"]
-}
-```
-
-```bash
-yarn workspace web build
-yarn workspaces foreach run build
+yarn add lodash                # add dep
+yarn add -D typescript         # dev dep
+yarn dev                       # run script (no 'run' needed)
+yarn dlx create-next-app       # like npx (yarn berry)
+yarn workspace web build       # workspace command
+yarn workspaces foreach -A run build
 ```
 
 ## Publishing
 
-### Prepare
+### Package Setup
 
 ```json
 {
   "name": "@scope/package",
   "version": "1.0.0",
   "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
-  "files": ["dist"],
-  "repository": "github:user/repo",
-  "publishConfig": {
-    "access": "public"
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "publishConfig": { "access": "public" },
+  "scripts": { "prepublishOnly": "npm run build && npm test" }
+}
+```
+
+The `files` field whitelists what goes in the tarball. Prefer `files` over `.npmignore`.
+
+### Publish and Version
+
+```bash
+npm publish                     # publish to registry
+npm publish --access public     # scoped packages (first time)
+npm publish --dry-run           # preview what gets published
+npm pack --dry-run              # list files that would be included
+npm publish --provenance        # with build provenance (CI only)
+
+npm version patch               # 1.0.0 -> 1.0.1
+npm version minor               # 1.0.0 -> 1.1.0
+npm version major               # 1.0.0 -> 2.0.0
+npm version prerelease --preid=beta  # 1.0.0 -> 1.0.1-beta.0
+```
+
+`npm version` auto-updates package.json, creates a git commit, and tags it. Hook into the flow:
+
+```json
+{
+  "scripts": {
+    "preversion": "npm test",
+    "version": "npm run build && git add -A",
+    "postversion": "git push && git push --tags && npm publish"
   }
 }
 ```
 
-### Publish
+## Debugging Scripts
 
 ```bash
-npm login
-npm publish
-npm publish --access public  # Scoped packages
-
-# Dry run
-npm publish --dry-run
+npm run build --verbose          # see exact command
+npm run build --silent           # suppress npm output, show only script output
+npm run                          # list all available scripts
+node --inspect-brk dist/index.js # debugger, break on first line
+NODE_OPTIONS='--inspect' npm run dev  # attach inspector to any script
+DEBUG=express:* npm run dev      # debug logging (common pattern)
+NODE_DEBUG=module node dist/index.js  # debug module resolution
 ```
 
-### Version Bump
+## Security
 
 ```bash
-npm version patch  # 1.0.0 -> 1.0.1
-npm version minor  # 1.0.0 -> 1.1.0
-npm version major  # 1.0.0 -> 2.0.0
+npm audit                        # check known vulnerabilities
+npm audit --audit-level=high     # fail only on high/critical
+npm audit signatures             # verify package signatures
+npm ci                           # verifies lock file integrity checksums
+npm publish --provenance         # build provenance (GitHub Actions)
+npx @socketsecurity/cli report   # supply chain security report
 ```
 
-## Useful Commands
+Best practices:
+- Run `npm audit` in CI pipelines
+- Use `npm ci` (not `npm install`) in CI for reproducible builds
+- Set `save-exact=true` in `.npmrc` for critical dependencies
+- Use `npm publish --provenance` for public packages
+- Never store auth tokens in committed `.npmrc` -- use environment variables
+
+## Quick Reference
 
 ```bash
-npm ls                   # List installed
-npm ls lodash            # Check specific
-npm outdated             # Check outdated
-npm why lodash           # Why installed
-npm cache clean --force  # Clear cache
-npm init -y              # Quick init
-npm exec -- eslint .     # Run bin
-npx create-react-app     # Run without install
+npm init -y                    # create package.json
+npm cache clean --force        # clear cache
+npm config list                # show config
+npm exec -- eslint .           # run local binary
+npm link                       # symlink package for local dev
+npm repo                       # open repo in browser
+npm docs lodash                # open package docs
+npm view lodash versions       # list published versions
 ```

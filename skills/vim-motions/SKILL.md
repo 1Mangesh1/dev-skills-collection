@@ -1,20 +1,23 @@
 ---
 name: vim-motions
-description: Vim keybindings, motions, text objects, and operators for efficient text editing. Use when user asks about "vim commands", "vim motions", "text objects", "vim keybindings", "vim cheat sheet", "learn vim", "vim in VS Code", or any Vim editing tasks.
+description: Vim keybindings, motions, text objects, operators, macros, registers, and modal editing for efficient text editing. Use when user asks about "vim commands", "vim motions", "text objects", "vim keybindings", "vim cheat sheet", "learn vim", "vim in VS Code", "neovim", "IdeaVim", "vim macros", "vim registers", "vim search and replace", "vimrc", "vim splits", or any Vim editing tasks.
 ---
 
 # Vim Motions
 
-Motions, operators, text objects for efficient editing.
+Motions, operators, text objects, registers, macros, and configuration for efficient editing.
 
-## Modes
+## Modal Editing Fundamentals
 
 ```
-Normal    ESC or Ctrl-[    Navigate and manipulate
-Insert    i, a, o, etc.    Type text
-Visual    v, V, Ctrl-v     Select text
-Command   :                Execute commands
+Normal    ESC or Ctrl-[    Navigate, manipulate, compose commands
+Insert    i, a, o, etc.    Type text directly
+Visual    v, V, Ctrl-v     Select text for operations
+Command   :                Execute ex commands, search/replace
+Replace   R                Overtype existing text
 ```
+
+Normal mode is home base. Every other mode is entered for a specific purpose, then exited back to Normal.
 
 ## Basic Motions
 
@@ -31,138 +34,120 @@ g_            Last non-blank character
 ### Word
 
 ```
-w             Next word start
-W             Next WORD start (space-delimited)
-b             Previous word start
-B             Previous WORD start
-e             Next word end
-E             Next WORD end
+w / W         Next word/WORD start
+b / B         Previous word/WORD start
+e / E         Next word/WORD end
 ge            Previous word end
 ```
 
-### Line Navigation
+word = letters/digits/underscores. WORD = anything non-blank. Use W/B/E for fast movement through punctuation-heavy code.
+
+### Line and File Navigation
 
 ```
 gg            First line
 G             Last line
-5G            Go to line 5
-:42           Go to line 42
-H             Top of screen
-M             Middle of screen
-L             Bottom of screen
+5G or :5      Go to line 5
+H / M / L     Top / Middle / Bottom of screen
+%             Jump to matching bracket/paren/brace
+{ / }         Previous / Next blank line (paragraph boundary)
+( / )         Previous / Next sentence
 ```
 
-### Search
+### Search and Find
 
 ```
-f{char}       Find char forward (on line)
-F{char}       Find char backward
-t{char}       Till char forward (before char)
+f{char}       Find char forward on line
+F{char}       Find char backward on line
+t{char}       Till char forward (stop before)
 T{char}       Till char backward
 ;             Repeat last f/F/t/T
 ,             Repeat last f/F/t/T (reverse)
 /{pattern}    Search forward
 ?{pattern}    Search backward
-n             Next match
-N             Previous match
-*             Search word under cursor
-#             Search word under cursor (backward)
+n / N         Next / Previous match
+*             Search word under cursor forward
+#             Search word under cursor backward
+gd            Go to local definition
+gf            Go to file under cursor
 ```
 
 ### Scrolling
 
 ```
-Ctrl-d        Scroll half page down
-Ctrl-u        Scroll half page up
-Ctrl-f        Scroll full page down
-Ctrl-b        Scroll full page up
-zz            Center current line
-zt            Current line to top
-zb            Current line to bottom
+Ctrl-d / Ctrl-u     Scroll half page down / up
+Ctrl-f / Ctrl-b     Scroll full page down / up
+zz / zt / zb        Center / Top / Bottom current line
+Ctrl-e / Ctrl-y     Scroll one line down / up
 ```
 
 ## Operators
 
 ```
-d             Delete
-c             Change (delete + insert mode)
-y             Yank (copy)
->             Indent right
-<             Indent left
-=             Auto-indent
-gu            Lowercase
-gU            Uppercase
-g~            Toggle case
+d     Delete          c     Change (delete + insert)
+y     Yank (copy)     >     Indent right
+<     Indent left      =     Auto-indent
+gq    Format/rewrap   gu    Lowercase
+gU    Uppercase        g~    Toggle case
 ```
 
 ### Operator + Motion = Action
 
 ```
-dw            Delete word
-d$            Delete to end of line
-d0            Delete to start of line
-dG            Delete to end of file
-dgg           Delete to start of file
-d3j           Delete 3 lines down
-
-cw            Change word
-ci"           Change inside quotes
-ca)           Change around parentheses
-
-yy            Yank (copy) line
-yw            Yank word
+dw            Delete to next word start
+d$ or D       Delete to end of line
+dG / dgg      Delete to end / start of file
+d3j           Delete current + 3 lines down
+cw            Change to next word start
+c$ or C       Change to end of line
+ct)           Change till closing paren
+yy            Yank entire line
 y$            Yank to end of line
-
->>            Indent line
+>>            Indent line right
 3>>           Indent 3 lines
+=ap           Auto-indent around paragraph
+gqip          Reformat inside paragraph
+gUiw          Uppercase inner word
 ```
 
 ## Text Objects
 
 ```
-i = inner (inside)
-a = around (including delimiters)
+i = inner (inside delimiters)    a = around (including delimiters)
 
-iw / aw       Word
-iW / aW       WORD
-is / as       Sentence
-ip / ap       Paragraph
-i" / a"       Double quotes
-i' / a'       Single quotes
-i` / a`       Backticks
-i( / a(       Parentheses
-i[ / a[       Brackets
-i{ / a{       Braces
-i< / a<       Angle brackets
-it / at       HTML/XML tag
+iw / aw       Word               iW / aW       WORD
+is / as       Sentence           ip / ap       Paragraph
+i" / a"       Double quotes      i' / a'       Single quotes
+i` / a`       Backticks          i( / a(       Parentheses
+i[ / a[       Brackets           i{ / a{       Braces
+i< / a<       Angle brackets     it / at       HTML/XML tag
 ```
 
 ### Common Text Object Actions
 
 ```
-diw           Delete inner word
 ciw           Change inner word
-yi"           Yank inside quotes
-da"           Delete around quotes (including quotes)
+ci"           Change inside double quotes
 ci(           Change inside parentheses
+da"           Delete around quotes (including the quotes)
+dap           Delete around paragraph
 dit           Delete inside HTML tag
 vit           Select inside HTML tag
-yap           Yank around paragraph
->ip           Indent paragraph
+yiw           Yank inner word
+yi{           Yank inside braces
+>ip           Indent inner paragraph
+=i{           Auto-indent inside braces
 ```
 
 ## Insert Mode Entry
 
 ```
-i             Insert before cursor
-I             Insert at line start
-a             Append after cursor
-A             Append at line end
-o             Open line below
-O             Open line above
-s             Delete char and insert
-S             Delete line and insert
+i / I         Insert before cursor / at line start
+a / A         Append after cursor / at line end
+o / O         Open line below / above
+s / S         Delete char / line and insert
 C             Delete to end of line and insert
+gi            Insert at last insert position
 ```
 
 ## Visual Mode
@@ -171,78 +156,209 @@ C             Delete to end of line and insert
 v             Character-wise visual
 V             Line-wise visual
 Ctrl-v        Block (column) visual
-
-# In visual mode:
 o             Jump to other end of selection
-gv            Reselect last selection
+gv            Reselect last visual selection
 
-# Visual block operations
-Ctrl-v → select → I → type → ESC    Insert in all lines
-Ctrl-v → select → A → type → ESC    Append to all lines
-Ctrl-v → select → c → type → ESC    Change all lines
+Ctrl-v → select → I → type → ESC    Insert in all selected lines
+Ctrl-v → select → A → type → ESC    Append to all selected lines
+Ctrl-v → select → c → type → ESC    Change all selected lines
 Ctrl-v → select → d                  Delete column
+Ctrl-v → select → r{char}            Replace with char
+V3j>          Select 4 lines, indent right
+vip:sort      Select paragraph, sort lines
 ```
 
-## Editing Commands
+## Registers and Clipboard
 
 ```
-x             Delete character
-X             Delete character before
-dd            Delete line
-D             Delete to end of line
-cc            Change line
-C             Change to end of line
-J             Join lines
-u             Undo
-Ctrl-r        Redo
-.             Repeat last command
-~             Toggle case of character
-```
+"{reg}y       Yank into register {reg}
+"{reg}p       Paste from register {reg}
+"+y / "+p     Yank to / paste from system clipboard
+"0p           Paste last yank (ignores deletes)
+"_d           Delete into black hole (don't overwrite default register)
+"ayiw         Yank word into register a
+"Ayy          Append line to register a (uppercase = append)
+:registers    Show all register contents
 
-## Registers
-
-```
-"ay           Yank into register 'a'
-"ap           Paste from register 'a'
-"+y           Yank to system clipboard
-"+p           Paste from system clipboard
-"0p           Paste last yank (not delete)
-:registers    Show all registers
+Special: "  last used   0  last yank    1-9  last deletes
+         .  last insert  %  filename    :  last command  /  last search
 ```
 
 ## Macros
 
 ```
-qa            Start recording macro 'a'
+qa            Start recording macro into register 'a'
 q             Stop recording
 @a            Play macro 'a'
-@@            Replay last macro
+@@            Replay last played macro
 5@a           Play macro 'a' 5 times
+:5,20normal @a   Run macro on lines 5-20
+
+Recursive: qaqqa...@aq  — clears a, records actions + self-call, stops on failure
+Edit macro: "ap to paste, edit text, "ayy to yank back
 ```
 
 ## Marks
 
 ```
-ma            Set mark 'a'
-'a            Jump to mark 'a' (line)
-`a            Jump to mark 'a' (exact position)
-''            Jump to last position
-`.            Jump to last edit
+ma            Set mark 'a' at cursor position
+'a / `a       Jump to line / exact position of mark 'a'
+:marks        List all marks
+
+Automatic marks:
+''  ``        Last jump position
+'.  `.        Last edit position
+'^  `^        Last insert position
+'[  `[  ']  `]    Start / end of last change or yank
+'<  `<  '>  `>    Start / end of last visual selection
+
+Uppercase marks (A-Z) are global across files:
+mA            Set global mark A
+'A            Jump to file and line of mark A
 ```
 
-## Essential Commands
+## Search and Replace
 
 ```
-:w            Save
-:q            Quit
-:wq           Save and quit
-:q!           Quit without saving
-:e file       Open file
-:%s/old/new/g Replace all in file
-:s/old/new/g  Replace all in line
-:noh          Clear search highlight
+:s/old/new/           Replace first on current line
+:s/old/new/g          Replace all on current line
+:%s/old/new/g         Replace all in file
+:%s/old/new/gc        Replace all with confirmation (y/n/a/q/l)
+:5,20s/old/new/g      Replace on lines 5-20
+:'<,'>s/old/new/g     Replace in visual selection
+:%s/\v(\w+)/\U\1/g    Very magic mode — uppercase all words
+:%s/\s\+$//           Strip trailing whitespace
+
+Global command — run ex command on matching lines:
+:g/TODO/d             Delete all lines containing TODO
+:g/^$/d               Delete all blank lines
+:g/pattern/normal A;  Append semicolon to matching lines
+
+Inverse global — run on NON-matching lines:
+:v/keep/d             Delete lines NOT containing "keep"
 ```
 
-## Reference
+## Window Management
 
-For quick reference card: `references/cheatsheet.md`
+```
+:sp [file]            Horizontal split (or Ctrl-w s)
+:vsp [file]           Vertical split (or Ctrl-w v)
+Ctrl-w h/j/k/l       Move to left/down/up/right window
+Ctrl-w H/J/K/L       Move window to far position
+Ctrl-w =              Equalize window sizes
+Ctrl-w _ / Ctrl-w |   Maximize height / width
+Ctrl-w o              Close all except current
+Ctrl-w q              Close current window
+Ctrl-w T              Move window to new tab
+:tabnew               New tab
+gt / gT               Next / previous tab
+```
+
+## Buffer Navigation
+
+```
+:ls           List open buffers
+:bn / :bp     Next / previous buffer
+:b#           Toggle to alternate buffer
+:b {name}     Switch by partial name
+:bd           Close current buffer
+:bufdo %s/old/new/g   Replace across all buffers
+```
+
+## Useful Commands
+
+```
+.             Repeat last change (most powerful command in Vim)
+u / Ctrl-r    Undo / Redo
+J / gJ        Join lines with / without space
+~             Toggle case of character
+g~~           Toggle case of entire line
+Ctrl-a        Increment number under cursor
+Ctrl-x        Decrement number under cursor
+ga            Show ASCII value of character
+gf            Open file under cursor
+gx            Open URL under cursor
+:!cmd         Run shell command
+:r !cmd       Insert shell command output
+```
+
+## .vimrc Essentials
+
+```vim
+let mapleader = " "
+set number relativenumber
+set ignorecase smartcase
+set incsearch hlsearch
+set expandtab tabstop=2 shiftwidth=2
+set scrolloff=8
+set clipboard=unnamedplus
+
+nnoremap <leader>w :w<CR>
+nnoremap <leader>q :q<CR>
+nnoremap <leader>/ :noh<CR>
+nnoremap Y y$
+vnoremap < <gv
+vnoremap > >gv
+nnoremap n nzzzv
+nnoremap N Nzzzv
+```
+
+## Vim in VS Code
+
+```jsonc
+// settings.json — vscodevim extension
+"vim.leader": "<space>",
+"vim.useSystemClipboard": true,
+"vim.hlsearch": true,
+"vim.smartRelativeLine": true,
+"vim.handleKeys": {
+  "<C-d>": true, "<C-u>": true,
+  "<C-w>": false, "<C-b>": false, "<C-p>": false
+}
+```
+
+Let VS Code handle Ctrl-w (close tab), Ctrl-b (sidebar), Ctrl-p (quick open). Let Vim handle Ctrl-d and Ctrl-u (scrolling).
+
+## Vim in JetBrains (IdeaVim)
+
+```
+# ~/.ideavimrc
+set ideajoin surround commentary NERDTree
+map <leader>r <Action>(RenameElement)
+map <leader>f <Action>(GotoFile)
+map <leader>b <Action>(ToggleLineBreakpoint)
+map <leader>d <Action>(Debug)
+```
+
+## Neovim Differences
+
+```lua
+-- Neovim uses init.lua (Lua) instead of .vimrc (Vimscript)
+vim.g.mapleader = " "
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+vim.opt.clipboard = "unnamedplus"
+
+vim.keymap.set("n", "<leader>w", ":w<CR>")
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")  -- move selection down
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")  -- move selection up
+-- Built-in LSP, Treesitter, terminal mode (Ctrl-\ Ctrl-n to exit)
+```
+
+## Productivity Patterns
+
+```
+ci"           Change inside quotes — cursor anywhere between them
+da(           Delete around parens including the parens
+yiw           Yank word without needing to be at word start
+dap           Delete entire paragraph
+*cwfix<ESC>   Find word under cursor, change it, then n. to repeat everywhere
+xp            Transpose two characters
+ddp           Swap current line with next
+gf            Open filename under cursor
+:e %:h/       Open file in same directory as current
+qaI// <ESC>jq  Record macro to comment lines, repeat with @a
+```
