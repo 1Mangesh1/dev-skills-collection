@@ -1,181 +1,364 @@
 ---
 name: docker-helper
-description: Docker and Docker Compose mastery for containers, images, networks, volumes, and debugging. Use when user asks to "build a container", "run docker", "debug container", "write dockerfile", "docker compose up", "check container logs", "optimize docker image", or any container operations.
+description: Docker operations including Dockerfile authoring, image builds, container lifecycle, networking, volumes, multi-stage builds, buildx, security hardening, and debugging. Use when asked to "build image", "run container", "write dockerfile", "docker compose", "optimize image", "debug container", "multi-platform build", "docker network", "docker volume", "scan image", "prune docker", or any container-related task.
 ---
 
 # Docker Helper
 
-Essential Docker and Docker Compose commands and patterns.
-
-## Container Operations
-
-```bash
-# Run container
-docker run -d --name myapp -p 8080:80 nginx
-docker run -it --rm ubuntu bash  # Interactive, auto-remove
-
-# With volume and env
-docker run -d \
-  -v $(pwd):/app \
-  -e NODE_ENV=production \
-  --name myapp \
-  node:18 npm start
-
-# List containers
-docker ps          # Running
-docker ps -a       # All
-
-# Logs
-docker logs myapp
-docker logs -f myapp        # Follow
-docker logs --tail 100 myapp
-
-# Exec into container
-docker exec -it myapp bash
-docker exec -it myapp sh    # Alpine
-
-# Stop/remove
-docker stop myapp
-docker rm myapp
-docker rm -f myapp  # Force
-```
-
-## Image Operations
-
-```bash
-# Build
-docker build -t myapp:latest .
-docker build -t myapp:v1.0 -f Dockerfile.prod .
-
-# List/remove
-docker images
-docker rmi myapp:latest
-docker image prune -a  # Remove unused
-
-# Tag/push
-docker tag myapp:latest registry.io/myapp:latest
-docker push registry.io/myapp:latest
-```
-
-## Docker Compose
-
-```bash
-# Start services
-docker compose up -d
-docker compose up -d --build  # Rebuild
-
-# Stop
-docker compose down
-docker compose down -v  # Remove volumes
-
-# Logs
-docker compose logs -f
-docker compose logs -f web
-
-# Scale
-docker compose up -d --scale web=3
-
-# Exec
-docker compose exec web bash
-```
-
-### Compose File Pattern
-
-```yaml
-# docker-compose.yml
-services:
-  web:
-    build: .
-    ports:
-      - "3000:3000"
-    volumes:
-      - .:/app
-      - /app/node_modules
-    environment:
-      - NODE_ENV=development
-    depends_on:
-      - db
-
-  db:
-    image: postgres:15
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_PASSWORD: secret
-
-volumes:
-  postgres_data:
-```
-
-## Debugging
-
-```bash
-# Container inspection
-docker inspect myapp
-docker inspect --format '{{.NetworkSettings.IPAddress}}' myapp
-
-# Resource usage
-docker stats
-docker stats myapp
-
-# Processes in container
-docker top myapp
-
-# Filesystem changes
-docker diff myapp
-
-# Copy files
-docker cp myapp:/app/file.txt ./
-docker cp ./file.txt myapp:/app/
-```
-
-## Cleanup
-
-```bash
-# Remove stopped containers
-docker container prune
-
-# Remove unused images
-docker image prune -a
-
-# Remove unused volumes
-docker volume prune
-
-# Remove everything unused
-docker system prune -a --volumes
-```
-
 ## Dockerfile Best Practices
 
+### Layer Caching and .dockerignore
+
+Order instructions from least to most frequently changing. Copy dependency manifests before source code.
+
 ```dockerfile
-# Use specific tags
-FROM node:18-alpine
-
-# Set working directory
+FROM node:20-alpine
 WORKDIR /app
-
-# Copy package files first (layer caching)
-COPY package*.json ./
-RUN npm ci --only=production
-
-# Copy source
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
 COPY . .
-
-# Non-root user
-RUN addgroup -g 1001 appgroup && \
-    adduser -S -u 1001 -G appgroup appuser
-USER appuser
-
-# Expose port
-EXPOSE 3000
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s \
-  CMD wget -q --spider http://localhost:3000/health || exit 1
-
 CMD ["node", "server.js"]
 ```
 
-## Reference
+Always include a `.dockerignore` to reduce build context and prevent secret leaks:
 
-For multi-stage builds, networking, and optimization: `references/advanced.md`
+```
+node_modules
+.git
+.env
+*.log
+dist
+__pycache__
+.venv
+```
+
+### Health Checks
+
+```dockerfile
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD wget -qO- http://localhost:3000/health || exit 1
+```
+
+## Image Management
+
+```bash
+docker build -t myapp:latest .
+docker build -t myapp:v1.2 -f Dockerfile.prod --build-arg NODE_ENV=production .
+docker build --no-cache -t myapp:latest .
+
+docker tag myapp:latest registry.example.com/myapp:v1.2
+docker push registry.example.com/myapp:v1.2
+docker pull registry.example.com/myapp:v1.2
+
+docker images
+docker images --filter "dangling=true"
+docker image ls --format "table {{.Repository}}\t{{.Tag}}\t{{.Size}}"
+docker history myapp:latest
+
+docker rmi myapp:latest
+docker image prune -a
+```
+
+## Container Lifecycle
+
+```bash
+# Run (create + start)
+docker run -d --name myapp -p 8080:80 nginx
+docker run -it --rm ubuntu bash
+docker run -d --restart unless-stopped myapp
+
+# Start / stop / restart
+docker start myapp
+docker stop myapp
+docker restart myapp
+
+# Remove
+docker rm myapp
+docker rm -f myapp
+
+# List
+docker ps                  # Running
+docker ps -a               # All
+
+# Logs
+docker logs myapp
+docker logs -f --tail 200 myapp
+docker logs --since 10m myapp
+
+# Execute inside a running container
+docker exec -it myapp bash
+docker exec -it myapp sh   # Alpine
+docker exec myapp cat /etc/os-release
+```
+
+## Networking
+
+```bash
+docker network ls
+docker network create mynet
+
+# Containers on the same custom network resolve each other by name
+docker run -d --name api --network mynet myapi:latest
+docker run -d --name db --network mynet postgres:16
+# From api, reach db at hostname "db": postgresql://user:pass@db:5432/mydb
+
+docker network connect mynet myapp
+docker network disconnect mynet myapp
+docker network inspect mynet
+
+# Port mapping
+docker run -d -p 8080:80 nginx               # Host 8080 -> container 80
+docker run -d -p 127.0.0.1:8080:80 nginx     # Bind to localhost only
+docker run -d -P nginx                        # All exposed -> random host ports
+
+# Host networking (Linux only, container shares host network stack)
+docker run -d --network host nginx
+```
+
+## Volumes and Bind Mounts
+
+```bash
+# Named volume
+docker volume create mydata
+docker run -d -v mydata:/var/lib/data myapp
+
+# Bind mount
+docker run -d -v $(pwd)/src:/app/src myapp
+docker run -d -v $(pwd)/config.yaml:/app/config.yaml:ro myapp
+
+# tmpfs (in-memory, never written to disk)
+docker run -d --tmpfs /tmp:rw,size=64m myapp
+
+docker volume ls
+docker volume inspect mydata
+docker volume rm mydata
+
+# Copy files
+docker cp myapp:/app/data.json ./
+docker cp ./config.yaml myapp:/app/
+```
+
+## Environment Variables and Secrets
+
+```bash
+docker run -e DATABASE_URL=postgres://user:pass@db:5432/app myapp
+docker run --env-file .env myapp
+```
+
+BuildKit secrets (never stored in image layers):
+
+```bash
+docker build --secret id=npmrc,src=$HOME/.npmrc -t myapp .
+```
+
+```dockerfile
+# syntax=docker/dockerfile:1
+RUN --mount=type=secret,id=npmrc,target=/root/.npmrc npm ci
+```
+
+## Multi-Stage Build Patterns
+
+### Go (scratch)
+
+```dockerfile
+FROM golang:1.22-alpine AS builder
+WORKDIR /src
+COPY go.mod go.sum ./
+RUN go mod download
+COPY . .
+RUN CGO_ENABLED=0 GOOS=linux go build -o /app .
+
+FROM scratch
+COPY --from=builder /app /app
+ENTRYPOINT ["/app"]
+```
+
+### Python
+
+```dockerfile
+FROM python:3.12-slim AS builder
+WORKDIR /app
+COPY requirements.txt .
+RUN python -m venv /opt/venv && /opt/venv/bin/pip install --no-cache-dir -r requirements.txt
+
+FROM python:3.12-slim
+COPY --from=builder /opt/venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+WORKDIR /app
+COPY . .
+USER nobody
+CMD ["python", "main.py"]
+```
+
+### Node.js
+
+```dockerfile
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci
+COPY . .
+RUN npm run build && npm prune --omit=dev
+
+FROM node:20-alpine
+WORKDIR /app
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/dist ./dist
+COPY package.json ./
+RUN addgroup -g 1001 appgroup && adduser -S -u 1001 -G appgroup appuser
+USER appuser
+EXPOSE 3000
+CMD ["node", "dist/server.js"]
+```
+
+### Java
+
+```dockerfile
+FROM eclipse-temurin:21-jdk AS builder
+WORKDIR /app
+COPY build.gradle settings.gradle gradlew ./
+COPY gradle ./gradle
+RUN ./gradlew dependencies --no-daemon
+COPY src ./src
+RUN ./gradlew bootJar --no-daemon
+
+FROM eclipse-temurin:21-jre
+COPY --from=builder /app/build/libs/*.jar app.jar
+USER 1000
+EXPOSE 8080
+CMD ["java", "-jar", "app.jar"]
+```
+
+## Debugging Containers
+
+```bash
+docker inspect myapp
+docker inspect --format '{{.State.Status}}' myapp
+docker inspect --format '{{.State.ExitCode}}' myapp
+docker inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' myapp
+
+docker stats                     # Live resource usage
+docker stats myapp --no-stream   # Single snapshot
+docker top myapp                 # Processes inside container
+docker diff myapp                # Filesystem changes since start
+docker events --filter container=myapp
+
+# Debug sidecar with network tools
+docker run -it --rm --pid=container:myapp --network=container:myapp nicolaka/netshoot
+```
+
+## Docker Buildx (Multi-Platform)
+
+```bash
+docker buildx create --name multibuilder --use
+docker buildx build --platform linux/amd64,linux/arm64 -t myapp:latest --push .
+docker buildx build --platform linux/amd64 -t myapp:latest --load .
+docker buildx ls
+docker buildx rm multibuilder
+```
+
+## Image Optimization
+
+| Base Image             | Size    | Shell | Use Case                  |
+|------------------------|---------|-------|---------------------------|
+| ubuntu:22.04           | ~77 MB  | Yes   | General purpose            |
+| debian:bookworm-slim   | ~52 MB  | Yes   | Smaller general purpose    |
+| alpine:3.19            | ~7 MB   | Yes   | Small images with shell    |
+| gcr.io/distroless/base | ~20 MB  | No    | Minimal attack surface     |
+| scratch                | 0 MB    | No    | Static binaries (Go, Rust) |
+
+- Combine RUN statements: `RUN apt-get update && apt-get install -y pkg && rm -rf /var/lib/apt/lists/*`
+- Remove caches in the same layer they are created.
+- Use `docker history` and `dive` to find large layers.
+
+## Security
+
+```dockerfile
+# Non-root user
+RUN addgroup -g 1001 appgroup && adduser -S -u 1001 -G appgroup appuser
+USER appuser
+```
+
+```bash
+# Read-only filesystem
+docker run --read-only --tmpfs /tmp myapp
+
+# Drop capabilities
+docker run --cap-drop ALL --cap-add NET_BIND_SERVICE myapp
+
+# Prevent privilege escalation
+docker run --security-opt no-new-privileges myapp
+
+# Limit resources
+docker run --memory 512m --cpus 1.0 myapp
+```
+
+Never use COPY or ENV for secrets. Use BuildKit secret mounts or runtime env vars.
+
+### Scanning with Trivy
+
+```bash
+trivy image myapp:latest
+trivy image --severity HIGH,CRITICAL --exit-code 1 myapp:latest
+trivy config Dockerfile
+```
+
+## Cleanup Commands
+
+```bash
+docker container prune              # Remove stopped containers
+docker image prune -a               # Remove all unused images
+docker volume prune                 # Remove unused volumes (data loss risk)
+docker network prune                # Remove unused networks
+docker system prune -a --volumes    # Remove everything unused
+docker system df                    # Check disk usage
+```
+
+## Troubleshooting
+
+### Container Exits Immediately
+
+```bash
+docker logs myapp
+docker inspect --format '{{.State.ExitCode}}' myapp
+# Exit 0:   process completed (not a daemon, or CMD missing)
+# Exit 1:   application error
+# Exit 137: OOM killed or SIGKILL
+# Exit 126: command not executable
+# Exit 127: command not found (check CMD/ENTRYPOINT path)
+```
+
+### Port Conflicts
+
+```bash
+lsof -i :8080                       # Find what uses the port
+docker run -d -p 9090:80 nginx      # Use a different host port
+```
+
+### Permission Issues
+
+```dockerfile
+COPY --chown=appuser:appgroup . /app
+```
+
+```bash
+docker run -u $(id -u):$(id -g) -v $(pwd):/app myapp
+```
+
+### Container Cannot Resolve Other Containers
+
+Default bridge does not support DNS. Use a user-defined network:
+
+```bash
+docker network create mynet
+docker run -d --name api --network mynet myapi
+docker run -d --name db --network mynet postgres:16
+```
+
+### Build Context Too Large
+
+Add paths to `.dockerignore`, or specify a smaller context directory:
+
+```bash
+docker build -t myapp -f Dockerfile ./src
+```
