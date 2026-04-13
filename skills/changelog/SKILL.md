@@ -1,6 +1,6 @@
 ---
 name: changelog
-description: Changelog generation, release notes, semantic versioning, and release management. Use when user asks to "write a changelog", "generate release notes", "bump version", "follow conventional commits", "create a release", "update CHANGELOG.md", "write migration guide", "document breaking changes", "set up automated releases", "configure semantic-release", "add deprecation notice", or any versioning, changelog automation, and release documentation tasks.
+description: Changelog generation, release notes, semantic versioning, and release management. Use when user asks to "write a changelog", "generate release notes", "bump version", "follow conventional commits", "create a release", "update CHANGELOG.md", "write migration guide", "document breaking changes", "set up automated releases", "configure semantic-release", "add deprecation notice", "keep a changelog", "version a project", "squash commits before release", "manage pre-releases", "automate versioning", or any versioning, changelog automation, release notes, and release documentation tasks.
 ---
 
 # Changelog & Release Notes

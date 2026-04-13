@@ -1,6 +1,6 @@
 ---
 name: monitoring-observability
-description: Production monitoring, observability, and incident response practices. Use when the user asks about structured logging, distributed tracing, metrics collection, Prometheus, Grafana dashboards, log aggregation, ELK or Loki, alerting strategy, SLIs and SLOs, error budgets, health checks, RED or USE method, uptime monitoring, synthetic checks, incident response, postmortems, runbooks, or designing an observability stack.
+description: Production monitoring, observability, and incident response practices. Use when the user asks about structured logging, distributed tracing, metrics collection, Prometheus, Grafana dashboards, log aggregation, ELK or Loki, alerting strategy, SLIs and SLOs, error budgets, health checks, RED or USE method, uptime monitoring, synthetic checks, incident response, postmortems, runbooks, on-call rotations, alert fatigue, monitoring infrastructure, APM (application performance monitoring), observability signals, cardinality explosion, or designing an observability stack.
 ---
 
 # Monitoring and Observability

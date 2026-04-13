@@ -1,6 +1,6 @@
 ---
 name: ai-prompting
-description: Practical prompt engineering patterns for developers working with LLMs. Use when user asks about writing prompts, system prompts, few-shot examples, chain-of-thought, structured output from LLMs, context window management, tool calling prompts, prompt templates, code generation prompts, debugging with AI, prompt testing, token optimization, JSON mode, XML tags in prompts, model-specific prompting for Claude/GPT/Gemini, or any prompt design and optimization task.
+description: Practical prompt engineering patterns for developers working with LLMs. Use when user asks about writing prompts, system prompts, few-shot examples, chain-of-thought, structured output from LLMs, context window management, tool calling prompts, prompt templates, code generation prompts, debugging with AI, prompt testing, token optimization, JSON mode, XML tags in prompts, model-specific prompting for Claude/GPT/Gemini, instruction hierarchies, prompt compression, jailbreaking mitigation, output validation, semantic search in prompts, or any prompt design, optimization, testing, or engineering task.
 ---
 
 # Practical Prompt Engineering for Developers

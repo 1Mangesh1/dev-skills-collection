@@ -1,6 +1,6 @@
 ---
 name: microservices-architecture
-description: Microservices architecture patterns, trade-offs, and implementation guidance. Use when user asks about service decomposition, bounded contexts, API gateways, distributed transactions, saga pattern, circuit breaker, service mesh, event-driven architecture, CQRS, event sourcing, message brokers, service discovery, distributed tracing, contract testing, strangler fig migration, or any microservices design and operational concern.
+description: Microservices architecture patterns, trade-offs, and implementation guidance. Use when user asks about service decomposition, bounded contexts, API gateways, distributed transactions, saga pattern, circuit breaker, service mesh, event-driven architecture, CQRS, event sourcing, message brokers, service discovery, distributed tracing, contract testing, strangler fig migration, polyglot persistence, eventual consistency, inter-service communication, or any microservices design, operational concerns, and architectural decisions.
 ---
 
 # Microservices Architecture

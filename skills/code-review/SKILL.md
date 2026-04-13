@@ -1,6 +1,6 @@
 ---
 name: code-review
-description: Code review checklists, PR review patterns, feedback techniques, and review automation. Use when user asks to "review this code", "code review checklist", "PR review template", "review best practices", "write review feedback", "review this PR", "how to give feedback on code", "PR too large", "split this PR", "review turnaround time", "automated code review", "CODEOWNERS", "pair review", "when to request changes", or any code review tasks.
+description: Code review checklists, PR review patterns, feedback techniques, and review automation. Use when user asks to "review this code", "code review checklist", "PR review template", "review best practices", "write review feedback", "review this PR", "how to give feedback on code", "PR too large", "split this PR", "review turnaround time", "automated code review", "CODEOWNERS", "pair review", "when to request changes", "code review tool", "review security", "design review", "performance review", "test coverage review", or any code review and feedback tasks.
 ---
 
 # Code Review

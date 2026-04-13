@@ -1,6 +1,6 @@
 ---
 name: web-performance
-description: Web performance analysis and optimization across the full stack. Use when the user asks about Core Web Vitals, Lighthouse audits, page speed, load times, bundle size reduction, image optimization, caching strategies, code splitting, lazy loading, font loading, compression, CDN configuration, render-blocking resources, performance budgets, real user monitoring, server-side rendering performance, or any aspect of making websites faster.
+description: Web performance analysis and optimization across the full stack. Use when the user asks about Core Web Vitals, Lighthouse audits, page speed, load times, bundle size reduction, image optimization, caching strategies, code splitting, lazy loading, font loading, compression, CDN configuration, render-blocking resources, performance budgets, real user monitoring, synthetic monitoring, server-side rendering performance, Time to First Byte, First Contentful Paint, Largest Contentful Paint, Cumulative Layout Shift, or any aspect of making websites and web applications faster.
 ---
 
 # Web Performance Optimization

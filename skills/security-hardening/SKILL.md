@@ -1,6 +1,6 @@
 ---
 name: security-hardening
-description: Security hardening, secure coding practices, and infrastructure defense. Use when the user asks about hardening security, secure coding, OWASP vulnerabilities, input validation, sanitization, SQL injection prevention, XSS protection, CSRF tokens, CORS configuration, secure headers, CSP, HSTS, rate limiting, file upload security, secrets management, dependency auditing, Docker security, TLS/HTTPS, logging security events, server hardening, or any aspect of application and infrastructure security.
+description: Security hardening, secure coding practices, and infrastructure defense. Use when the user asks about hardening security, secure coding, OWASP vulnerabilities, input validation, sanitization, SQL injection prevention, XSS protection, CSRF tokens, CORS configuration, secure headers, CSP, HSTS, rate limiting, file upload security, secrets management, dependency auditing, Docker security, TLS/HTTPS, logging security events, server hardening, API security, authentication hardening, encryption, or any application and infrastructure security defense.
 ---
 
 # Security Hardening and Secure Coding

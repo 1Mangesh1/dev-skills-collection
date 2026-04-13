@@ -1,6 +1,6 @@
 ---
 name: testing-strategies
-description: Testing strategies, patterns, and methodologies across the full testing spectrum. Use when asked about unit tests, integration tests, e2e tests, test pyramid, mocking, test doubles, TDD, property-based testing, snapshot testing, test coverage, mutation testing, contract testing, performance testing, test data management, CI/CD testing, flaky tests, or test anti-patterns.
+description: Testing strategies, patterns, and methodologies across the full testing spectrum. Use when asked about unit tests, integration tests, e2e tests, test pyramid, mocking, test doubles, TDD, property-based testing, snapshot testing, test coverage, mutation testing, contract testing, performance testing, test data management, CI/CD testing, flaky tests, test anti-patterns, test organization, test isolation, test fixtures, test parameterization, or any testing strategy, approach, or methodology.
 ---
 
 # Testing Strategies and Methodologies

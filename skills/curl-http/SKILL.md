@@ -1,6 +1,6 @@
 ---
 name: curl-http
-description: HTTP request construction and API testing with curl and HTTPie. Use when user asks to "test API", "make HTTP request", "curl POST", "send request", "test endpoint", "debug API", "upload file", "check response time", "set auth header", or work with any HTTP calls from the command line.
+description: HTTP request construction and API testing with curl and HTTPie. Use when user asks to "test API", "make HTTP request", "curl POST", "send request", "test endpoint", "debug API", "upload file", "check response time", "set auth header", "basic auth with curl", "send JSON", "test webhook", "check status code", "follow redirects", "rate limit testing", "measure API latency", "stress test endpoint", "mock API response", or any HTTP calls from the command line.
 ---
 
 # curl and HTTPie Reference

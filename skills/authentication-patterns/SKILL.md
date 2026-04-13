@@ -1,6 +1,6 @@
 ---
 name: authentication-patterns
-description: Comprehensive authentication and authorization implementation guide. Use when the user asks about JWT tokens, OAuth 2.0 flows, session management, API key auth, SSO setup, SAML, OIDC, password hashing, multi-factor authentication, CSRF protection, token storage, CORS headers, rate limiting auth endpoints, or auth middleware patterns.
+description: Comprehensive authentication and authorization implementation guide. Use when the user asks about JWT tokens, OAuth 2.0 flows, session management, API key auth, SSO setup, SAML, OIDC, password hashing, multi-factor authentication, CSRF protection, token storage, CORS headers, rate limiting auth endpoints, bearer tokens, refresh tokens, OAuth scopes, identity providers, user permissions, role-based access control, attribute-based access control, or any authentication and authorization architecture, implementation, or security patterns.
 ---
 
 # Authentication and Authorization Patterns
