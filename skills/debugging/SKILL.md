@@ -1,6 +1,6 @@
 ---
 name: debugging
-description: This skill should be used when the user asks to "debug this code", "find the bug", "why is this failing", "trace this error", "debug memory leak", "profile this code", "debug network issue", "fix segfault", "debug race condition", "find performance bottleneck", or mentions debugging techniques, error tracing, stack traces, breakpoints, profiling, memory debugging, or troubleshooting.
+description: Debugging techniques, tools, and workflows. Use when user asks to "debug this code", "find the bug", "why is this failing", "trace this error", "debug memory leak", "profile this code", "debug network issue", "fix segfault", "debug race condition", "find performance bottleneck", "step through code", "debug async", "debug concurrency", "memory profiling", "CPU profiling", or mentions debugging techniques, error tracing, stack traces, breakpoints, profiling, memory debugging, or troubleshooting code.
 license: MIT
 metadata:
   author: 1mangesh1

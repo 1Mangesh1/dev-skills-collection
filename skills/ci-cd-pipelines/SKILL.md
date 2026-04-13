@@ -1,6 +1,6 @@
 ---
 name: ci-cd-pipelines
-description: This skill should be used when the user asks to "set up CI/CD", "create a pipeline", "configure Jenkins", "set up GitLab CI", "create CircleCI config", "automate deployments", "create build pipeline", "set up continuous deployment", "configure pipeline stages", "add pipeline caching", or mentions CI/CD pipelines, continuous integration, continuous deployment, build automation, deployment pipelines, or pipeline optimization.
+description: CI/CD pipeline design, setup, and optimization. Use when user asks to "set up CI/CD", "create a pipeline", "configure Jenkins", "set up GitLab CI", "create CircleCI config", "automate deployments", "create build pipeline", "set up continuous deployment", "configure pipeline stages", "add pipeline caching", "pipeline security", "secret management", "artifact management", "GitHub Actions workflow", "deployment strategies", "canary deployment", or mentions CI/CD pipelines, continuous integration, continuous deployment, build automation, deployment pipelines, or pipeline optimization.
 license: MIT
 metadata:
   author: 1mangesh1

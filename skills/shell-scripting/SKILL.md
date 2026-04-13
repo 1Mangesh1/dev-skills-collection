@@ -1,6 +1,6 @@
 ---
 name: shell-scripting
-description: This skill should be used when the user asks to "write a bash script", "create a shell script", "parse command line args", "write a deploy script", "automate with bash", "process files with bash", "create an install script", "write a backup script", "handle signals in bash", "parse CSV in bash", or mentions shell scripting, bash scripting, POSIX shell, script automation, bash best practices, or shell utilities.
+description: Shell scripting and bash automation. Use when user asks to "write a bash script", "create a shell script", "parse command line args", "write a deploy script", "automate with bash", "process files with bash", "create an install script", "write a backup script", "handle signals in bash", "parse CSV in bash", "error handling in bash", "functions in bash", "arrays in bash", "string manipulation", "loop patterns", or mentions shell scripting, bash scripting, POSIX shell, script automation, bash best practices, or shell utilities.
 license: MIT
 metadata:
   author: 1mangesh1

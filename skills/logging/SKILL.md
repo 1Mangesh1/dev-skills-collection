@@ -1,6 +1,6 @@
 ---
 name: logging
-description: This skill should be used when the user asks to "add logging", "set up structured logging", "configure log levels", "create a logger", "set up log rotation", "send logs to ELK", "configure Winston", "set up Pino", "add request logging", "implement audit logging", or mentions logging best practices, structured logging, log aggregation, log levels, observability, log rotation, or centralized logging.
+description: Logging setup, structured logging, and log management. Use when user asks to "add logging", "set up structured logging", "configure log levels", "create a logger", "set up log rotation", "send logs to ELK", "configure Winston", "set up Pino", "add request logging", "implement audit logging", "log formatting", "log correlation", "debug logging", "log sampling", "log filtering", or mentions logging best practices, structured logging, log aggregation, log levels, observability, log rotation, or centralized logging.
 license: MIT
 metadata:
   author: 1mangesh1

@@ -1,6 +1,6 @@
 ---
 name: error-handling
-description: This skill should be used when the user asks to "handle errors", "add error handling", "create custom errors", "handle exceptions", "implement retry logic", "add error boundaries", "design error responses", "handle async errors", "create error types", "implement graceful degradation", or mentions error handling patterns, exception handling, error boundaries, retry strategies, circuit breakers, or error recovery.
+description: Error handling patterns, strategies, and implementation. Use when user asks to "handle errors", "add error handling", "create custom errors", "handle exceptions", "implement retry logic", "add error boundaries", "design error responses", "handle async errors", "create error types", "implement graceful degradation", "error recovery", "fallback strategies", "exponential backoff", "timeout handling", "error logging", "error monitoring", or mentions error handling patterns, exception handling, error boundaries, retry strategies, circuit breakers, or error recovery.
 license: MIT
 metadata:
   author: 1mangesh1

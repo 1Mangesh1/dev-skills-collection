@@ -1,6 +1,6 @@
 ---
 name: caching-strategies
-description: This skill should be used when the user asks to "add caching", "cache API responses", "set up CDN caching", "configure HTTP caching", "implement memoization", "cache database queries", "set cache headers", "invalidate cache", "design cache layer", "reduce API latency", or mentions caching strategies, cache invalidation, TTL, cache-aside, write-through, CDN, browser caching, or memoization.
+description: Caching strategies and implementation patterns. Use when user asks to "add caching", "cache API responses", "set up CDN caching", "configure HTTP caching", "implement memoization", "cache database queries", "set cache headers", "invalidate cache", "design cache layer", "reduce API latency", "cache warming", "cache busting", "distributed caching", "Redis caching", "edge caching", or mentions caching strategies, cache invalidation, TTL, cache-aside, write-through, write-behind, CDN, browser caching, or memoization.
 license: MIT
 metadata:
   author: 1mangesh1

@@ -1,6 +1,6 @@
 ---
 name: typescript-patterns
-description: This skill should be used when the user asks to "write TypeScript generics", "create utility types", "fix TypeScript errors", "type a complex object", "use conditional types", "create type guards", "improve TypeScript types", "design type-safe APIs", "use mapped types", "create branded types", or mentions TypeScript patterns, advanced typing, generic constraints, discriminated unions, template literal types, or type inference.
+description: TypeScript patterns, advanced typing, and type safety. Use when user asks to "write TypeScript generics", "create utility types", "fix TypeScript errors", "type a complex object", "use conditional types", "create type guards", "improve TypeScript types", "design type-safe APIs", "use mapped types", "create branded types", "infer types", "type narrowing", "type variance", "overload signatures", "type assertion", or mentions TypeScript patterns, advanced typing, generic constraints, discriminated unions, template literal types, or type inference.
 license: MIT
 metadata:
   author: 1mangesh1

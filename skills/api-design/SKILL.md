@@ -1,6 +1,6 @@
 ---
 name: api-design
-description: This skill should be used when the user asks to "design a REST API", "create API endpoints", "write OpenAPI spec", "design API routes", "add pagination to API", "version an API", "create API schema", "design webhook endpoints", "structure API responses", "implement HATEOAS", or mentions REST API design, endpoint naming, HTTP methods, status codes, API best practices, request/response design, or API documentation.
+description: REST API design patterns, structure, and best practices. Use when user asks to "design a REST API", "create API endpoints", "write OpenAPI spec", "design API routes", "add pagination to API", "version an API", "create API schema", "design webhook endpoints", "structure API responses", "implement HATEOAS", "design API errors", "API versioning", "API deprecation", "rate limiting design", or mentions REST API design, endpoint naming, HTTP methods, status codes, API best practices, request/response design, or API documentation.
 license: MIT
 metadata:
   author: 1mangesh1
