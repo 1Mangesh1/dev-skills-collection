@@ -1,0 +1,48 @@
+{
+  "name": "logging",
+  "version": "1.0.0",
+  "description": "Logging best practices, structured logging, log levels, centralized log aggregation, and observability patterns across languages and frameworks.",
+  "compatible_agents": [
+    {
+      "agent": "claude",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "cursor",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "windsurf",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "aider",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "continue",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "cline",
+      "versions": ["latest"]
+    }
+  ],
+  "skill_categories": ["Logging", "Observability", "DevOps", "Best Practices"],
+  "trigger_phrases": [
+    "add logging",
+    "structured logging",
+    "configure log levels",
+    "create a logger",
+    "log rotation",
+    "centralized logging",
+    "ELK stack",
+    "configure Winston",
+    "set up Pino",
+    "request logging",
+    "audit logging",
+    "log aggregation",
+    "correlation ID",
+    "log sampling"
+  ]
+}

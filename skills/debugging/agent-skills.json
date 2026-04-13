@@ -1,0 +1,47 @@
+{
+  "name": "debugging",
+  "version": "1.0.0",
+  "description": "Systematic debugging methodologies, tools, and techniques across languages and platforms.",
+  "compatible_agents": [
+    {
+      "agent": "claude",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "cursor",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "windsurf",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "aider",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "continue",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "cline",
+      "versions": ["latest"]
+    }
+  ],
+  "skill_categories": ["Debugging", "Troubleshooting", "Performance"],
+  "trigger_phrases": [
+    "debug this code",
+    "find the bug",
+    "why is this failing",
+    "trace this error",
+    "debug memory leak",
+    "profile this code",
+    "debug network issue",
+    "fix segfault",
+    "debug race condition",
+    "find performance bottleneck",
+    "stack trace",
+    "breakpoints",
+    "profiling"
+  ]
+}

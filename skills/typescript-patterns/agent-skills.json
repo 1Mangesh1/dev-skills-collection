@@ -1,0 +1,133 @@
+{
+  "name": "typescript-patterns",
+  "version": "1.0.0",
+  "description": "Advanced TypeScript patterns including generics, utility types, conditional types, discriminated unions, branded types, type guards, and strict mode best practices for building type-safe applications.",
+  "author": {
+    "name": "1mangesh1",
+    "url": "https://github.com/1Mangesh1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/1Mangesh1/dev-skills-collection"
+  },
+  "license": "MIT",
+  "keywords": [
+    "typescript",
+    "generics",
+    "utility-types",
+    "conditional-types",
+    "mapped-types",
+    "template-literal-types",
+    "discriminated-unions",
+    "type-guards",
+    "branded-types",
+    "type-safety",
+    "zod",
+    "strict-mode",
+    "type-inference",
+    "declaration-merging",
+    "builder-pattern"
+  ],
+  "categories": [
+    "typescript",
+    "development",
+    "patterns"
+  ],
+  "skills": [
+    {
+      "name": "typescript-patterns",
+      "path": ".",
+      "entry": "SKILL.md",
+      "invocation": {
+        "commands": [
+          "/typescript-patterns",
+          "/ts-patterns"
+        ],
+        "triggers": [
+          "write TypeScript generics",
+          "create utility types",
+          "fix TypeScript errors",
+          "type a complex object",
+          "use conditional types",
+          "create type guards",
+          "improve TypeScript types",
+          "design type-safe APIs",
+          "use mapped types",
+          "create branded types",
+          "discriminated unions",
+          "template literal types",
+          "type inference",
+          "advanced TypeScript",
+          "generic constraints",
+          "TypeScript patterns",
+          "runtime validation",
+          "zod schema",
+          "strict mode TypeScript",
+          "declaration merging",
+          "module augmentation",
+          "exhaustive checking",
+          "type narrowing",
+          "builder pattern types"
+        ]
+      },
+      "capabilities": [
+        "Write advanced generic types with constraints",
+        "Create and compose utility types",
+        "Build conditional types with infer",
+        "Design mapped types and template literal types",
+        "Implement discriminated unions with exhaustive checks",
+        "Create type guards and assertion functions",
+        "Design branded/opaque types for type safety",
+        "Implement type-safe builder patterns",
+        "Set up Zod schemas with type inference",
+        "Diagnose and fix common TypeScript errors",
+        "Use declaration merging and module augmentation",
+        "Configure and leverage strict mode settings"
+      ],
+      "tools": {
+        "required": [
+          "read",
+          "glob",
+          "grep"
+        ],
+        "optional": [
+          "write",
+          "edit"
+        ]
+      }
+    }
+  ],
+  "compatibility": {
+    "agents": [
+      {
+        "name": "claude-code",
+        "minVersion": "1.0.0"
+      },
+      {
+        "name": "cursor",
+        "minVersion": "0.40.0"
+      },
+      {
+        "name": "windsurf",
+        "minVersion": "1.0.0"
+      },
+      {
+        "name": "aider",
+        "minVersion": "0.50.0"
+      },
+      {
+        "name": "continue",
+        "minVersion": "0.8.0"
+      },
+      {
+        "name": "cline",
+        "minVersion": "2.0.0"
+      }
+    ],
+    "platforms": [
+      "macos",
+      "linux",
+      "windows"
+    ]
+  }
+}

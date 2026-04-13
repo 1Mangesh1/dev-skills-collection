@@ -1,0 +1,49 @@
+{
+  "name": "caching-strategies",
+  "version": "1.0.0",
+  "description": "Caching strategies across all layers: HTTP, browser, CDN, application, distributed, and database.",
+  "compatible_agents": [
+    {
+      "agent": "claude",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "cursor",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "windsurf",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "aider",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "continue",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "cline",
+      "versions": ["latest"]
+    }
+  ],
+  "skill_categories": ["Performance", "Backend Development", "Infrastructure"],
+  "trigger_phrases": [
+    "add caching",
+    "cache API responses",
+    "set up CDN caching",
+    "configure HTTP caching",
+    "implement memoization",
+    "cache database queries",
+    "set cache headers",
+    "invalidate cache",
+    "design cache layer",
+    "reduce API latency",
+    "cache-aside",
+    "write-through cache",
+    "Redis caching",
+    "cache stampede",
+    "TTL strategy"
+  ]
+}

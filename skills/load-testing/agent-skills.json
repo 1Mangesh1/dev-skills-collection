@@ -1,0 +1,44 @@
+{
+  "name": "load-testing",
+  "version": "1.0.0",
+  "description": "Load testing, stress testing, and performance benchmarking for APIs and services.",
+  "compatible_agents": [
+    {
+      "agent": "claude",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "cursor",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "windsurf",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "aider",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "continue",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "cline",
+      "versions": ["latest"]
+    }
+  ],
+  "skill_categories": ["Testing", "Performance", "DevOps"],
+  "trigger_phrases": [
+    "load testing",
+    "stress testing",
+    "performance benchmarking",
+    "k6 script",
+    "artillery test",
+    "API throughput",
+    "concurrent users",
+    "breaking point",
+    "JMeter",
+    "locust test"
+  ]
+}

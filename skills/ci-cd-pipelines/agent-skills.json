@@ -1,0 +1,47 @@
+{
+  "name": "ci-cd-pipelines",
+  "version": "1.0.0",
+  "description": "CI/CD pipeline configuration and optimization across GitLab CI, Jenkins, CircleCI, and more.",
+  "compatible_agents": [
+    {
+      "agent": "claude",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "cursor",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "windsurf",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "aider",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "continue",
+      "versions": ["latest"]
+    },
+    {
+      "agent": "cline",
+      "versions": ["latest"]
+    }
+  ],
+  "skill_categories": ["DevOps", "CI/CD", "Automation", "Deployment"],
+  "trigger_phrases": [
+    "set up CI/CD",
+    "create a pipeline",
+    "configure Jenkins",
+    "set up GitLab CI",
+    "create CircleCI config",
+    "automate deployments",
+    "create build pipeline",
+    "set up continuous deployment",
+    "configure pipeline stages",
+    "add pipeline caching",
+    "pipeline optimization",
+    "deployment pipeline",
+    "build automation"
+  ]
+}
