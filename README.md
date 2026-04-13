@@ -1,6 +1,6 @@
 # Dev Skills Collection
 
-68 skills for AI coding agents — testing, CI/CD, DevOps, infrastructure, databases, version control, and general utilities. Works with Claude, Cursor, Windsurf, Aider, Continue, and Cline.
+78 skills for AI coding agents — testing, CI/CD, DevOps, infrastructure, databases, version control, and general utilities. Works with Claude, Cursor, Windsurf, Aider, Continue, and Cline.
 
 ## What's in here
 
@@ -10,6 +10,9 @@
 - Security and networking (secret scanning, OpenSSL/TLS, DNS debugging)
 - Media and files (ffmpeg, ImageMagick, tar/compression)
 - Daily utilities (port/process management, encoding, date/time, package managers)
+- AI and modern tooling (agents, Ollama, vector databases, Bun, Turborepo)
+- Frontend (Tailwind CSS) and backend (Prisma, gRPC, Cloudflare Workers)
+- Observability (OpenTelemetry)
 - 100+ reference guides
 - Compatible with most AI coding agents
 
@@ -61,7 +64,7 @@ Ask "Setup git hooks and commit conventions." Loads git-hooks, git-emoji, and gi
 
 Ask "Help me manage database migrations." The sql-migrations skill loads with rollback procedures and version control patterns.
 
-## All 68 skills
+## All 78 skills
 
 ### Testing (2)
 - jest-vitest — Jest and Vitest testing frameworks
@@ -70,8 +73,9 @@ Ask "Help me manage database migrations." The sql-migrations skill loads with ro
 ### CI/CD (1)
 - github-actions — GitHub Actions workflows
 
-### Infrastructure (10)
+### Infrastructure (11)
 - aws-cli — AWS CLI commands and infrastructure
+- cloudflare-workers — edge computing, KV, D1, R2, Workers AI
 - docker-compose — multi-container local dev and production stacks
 - kubernetes — container orchestration
 - nginx — web server configuration
@@ -82,8 +86,9 @@ Ask "Help me manage database migrations." The sql-migrations skill loads with ro
 - ssh-config — SSH configuration and keys
 - terraform — infrastructure as code
 
-### Developer tools (16)
+### Developer tools (19)
 - api-design — RESTful and GraphQL API design
+- bun-runtime — fast JS/TS runtime, bundler, test runner
 - code-review — code review checklists
 - curl-http — cURL and HTTP clients
 - env-debug — environment variable debugging
@@ -93,12 +98,28 @@ Ask "Help me manage database migrations." The sql-migrations skill loads with ro
 - git-hooks — Git hooks and automation
 - git-worktree — parallel branch work without stashing
 - graphql — GraphQL queries and APIs
+- grpc-protobuf — gRPC and Protocol Buffers
 - lint-format — linting and formatting
 - mcp-setup — Model Context Protocol setup
 - npm-scripts — NPM task automation
+- prisma-orm — type-safe database ORM for TypeScript
 - python-env — Python virtual environments
 - sed-awk — text processing with sed and awk
 - xargs-parallel — parallel execution and batch processing
+
+### AI and ML (3)
+- ai-agents — building autonomous AI agents, tool use, multi-agent patterns
+- ollama — local LLM inference, model management, API integration
+- vector-db — embeddings, semantic search, RAG pipelines
+
+### Frontend (1)
+- tailwind-css — utility-first CSS patterns and configuration
+
+### Monorepo and build (1)
+- turborepo — monorepo management, task orchestration, caching
+
+### Observability (1)
+- opentelemetry — distributed tracing, metrics, logging
 
 ### Utilities (22)
 - ascii-art — ASCII art generation
