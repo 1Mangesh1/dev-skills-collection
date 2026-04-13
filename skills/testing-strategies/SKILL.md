@@ -1,133 +1,290 @@
 ---
 name: testing-strategies
-description: Advanced testing strategies and methodologies. Use when user asks to "design tests", "test coverage", "property-based testing", "mutation testing", "contract testing", "chaos engineering", "test pyramid", "testing strategy", "behavior-driven development", "acceptance testing", or mentions comprehensive testing approaches.
+description: Testing strategies, patterns, and methodologies across the full testing spectrum. Use when asked about unit tests, integration tests, e2e tests, test pyramid, mocking, test doubles, TDD, property-based testing, snapshot testing, test coverage, mutation testing, contract testing, performance testing, test data management, CI/CD testing, flaky tests, or test anti-patterns.
 ---
 
-# Testing Strategies & Methodologies
+# Testing Strategies and Methodologies
 
-Comprehensive testing strategies for building reliable, high-quality software systems.
-
-## Test Pyramid
+## Testing Pyramid
 
 ```
-        UI/E2E Tests
-       /            \
-      /              \
-   Integration Tests
-    /                \
-  /                  \
-Unit Tests
+         /  E2E   \          ~5-10% of tests
+        / --------- \
+       / Integration  \      ~15-25% of tests
+      / --------------- \
+     /    Unit Tests      \   ~65-80% of tests
+    /______________________\
 ```
 
-- **Unit Tests**: Fast, isolated, low-level (60%)
-- **Integration Tests**: Component interactions (30%)
-- **E2E Tests**: Full system workflows (10%)
+**Unit tests** form the base. Fast (milliseconds), test a single function or class in isolation. When one fails, it should point to exactly what broke.
 
-## Testing Types
+**Integration tests** verify components work together: a service calling a database, two modules interacting, an HTTP handler processing a request through the application. Slower, more setup, but catch issues unit tests cannot.
 
-### Unit Testing
-- Test individual functions/methods
-- Mocking dependencies
-- Fast execution
-- Examples: Jest, Pytest, Mocha
+**End-to-end tests** simulate real user behavior through the full stack. Slow, expensive to maintain, prone to flakiness. Use sparingly for critical user journeys only.
 
-### Integration Testing
-- Test component interactions
-- With real databases/services
-- Slower than unit tests
-- Examples: Postman, Supertest
+Inverting the pyramid (many E2E, few unit) leads to slow feedback, flaky CI, and difficult debugging.
 
-### End-to-End Testing
-- Complete user workflows
-- Browser automation
-- Slowest but most realistic
-- Examples: Cypress, Selenium, Playwright
+## Unit Testing Patterns
 
-### Property-Based Testing
-- Generate random inputs
-- Verify invariants hold
-- Find edge cases
-- Examples: Hypothesis, QuickCheck
+### Arrange-Act-Assert (AAA)
 
-### Contract Testing
-- Verify API contracts between services
-- Consumer and provider sides
-- Microservices testing
-- Examples: Pact, Spring Cloud Contract
-
-### Chaos Engineering
-- Inject failures intentionally
-- Test system resilience
-- Find weak points
-- Tools: Chaos Toolkit, Gremlin
-
-## Best Practices
-
-1. **Test Behavior, Not Implementation** - Focus on what, not how
-2. **Keep Tests Fast** - Run frequently
-3. **Isolate Dependencies** - Mock external systems
-4. **Clear Test Names** - Describe what's being tested
-5. **DRY Tests** - Eliminate duplication
-6. **Test Edge Cases** - Boundaries, nulls, errors
-7. **Use Test Fixtures** - Consistent setup
-8. **Automate Testing** - CI/CD integration
-
-## Test Naming Convention
-
-```
-test_[function]_[scenario]_[expected_outcome]
-
-Example:
-test_calculateDiscount_withValidCode_returnsDiscountedPrice
-test_loginUser_withInvalidPassword_throwsAuthenticationError
+```python
+def test_apply_discount_reduces_price_by_percentage():
+    # Arrange
+    product = Product(name="Widget", price=100.00)
+    discount = Discount(percentage=15)
+    # Act
+    final_price = discount.apply(product)
+    # Assert
+    assert final_price == 85.00
 ```
 
-## Example Test Patterns
+### Given-When-Then
 
-### AAA Pattern (Arrange-Act-Assert)
+Equivalent to AAA with BDD terminology. Useful when tests map to user stories.
+
 ```javascript
-test('calculateTotal with items', () => {
-  // Arrange
-  const cart = new Cart();
-  cart.addItem({ price: 10 }, 2);
-  
-  // Act
-  const total = cart.getTotal();
-  
-  // Assert
-  expect(total).toBe(20);
+test('registered user with valid credentials receives auth token', () => {
+  // Given
+  const user = createUser({ email: 'test@example.com', password: 'secure123' });
+  // When
+  const result = authService.login(user.email, 'secure123');
+  // Then
+  expect(result.token).toBeDefined();
 });
 ```
 
-### BDD (Behavior-Driven Development)
-```gherkin
-Feature: User Authentication
-  Scenario: Login with valid credentials
-    Given a user with email "test@example.com"
-    When the user logs in with correct password
-    Then they should see the dashboard
+If the test name contains "and", it is likely testing too much.
+
+## Mocking Strategies
+
+### Types of Test Doubles
+
+**Stub**: Returns predetermined data. Does not verify how it was called.
+
+**Spy**: Records calls for later verification. `jest.spyOn(logger, 'warn')` then assert it was called with expected arguments.
+
+**Mock**: Pre-programmed with expectations. Fails the test if not called correctly. Created via frameworks like Mockito, unittest.mock, or Jest.
+
+**Fake**: A working but simplified implementation, such as an in-memory database replacing PostgreSQL.
+
+### When to Mock
+
+Mock when the dependency is slow (network, disk I/O), nondeterministic (time, randomness), has side effects (emails, payments), or you need to simulate errors (timeouts, 500s).
+
+Do not mock when the collaborator is a value object, you are testing the integration itself, the mock replicates the dependency's logic, or you are mocking three layers deep.
+
+Over-mocking makes tests pass while the real system is broken. If refactoring breaks twenty mocks, those tests are testing the wrong thing.
+
+## Integration Testing
+
+### Database Tests
+
+Use a real database, not mocks, for repository and query tests. Roll back transactions after each test or use a fresh schema for isolation.
+
+```python
+def test_find_active_users_excludes_deactivated(db_session):
+    db_session.add(User(name="Alice", active=True))
+    db_session.add(User(name="Bob", active=False))
+    db_session.commit()
+    result = user_repo.find_active(db_session)
+    assert len(result) == 1
+    assert result[0].name == "Alice"
 ```
 
-## Metrics
+### Container-Based Testing with Testcontainers
 
-- **Code Coverage**: % of code executed by tests (aim for 80%+)
-- **Test Pass Rate**: % of tests passing
-- **Test Execution Time**: How long tests take to run
-- **Mutation Score**: % of introduced bugs caught
+Testcontainers spins up real services (PostgreSQL, Redis, Kafka) in Docker for tests. Available for Java, Python, Node.js, Go, .NET. Eliminates "works on my machine" discrepancies.
 
-## Common Pitfalls to Avoid
+### API Integration Tests
 
-- Over-testing trivial code
-- Not testing error paths
-- Flaky tests (non-deterministic)
-- Testing implementation details
-- Ignoring performance in tests
-- Not testing concurrency
+Test HTTP endpoints with a running server and real or containerized dependencies. Verify both the response and the persisted state.
 
-## References
+## End-to-End Testing
 
-- Test Driven Development (Kent Beck)
-- Growing Object-Oriented Software, Guided by Tests
-- Working Effectively with Legacy Code (Michael Feathers)
-- Testing Strategies for Microservices
-- Chaos Engineering (whitepaper)
+Test critical user journeys: signup, checkout, payment, core workflows. Do not use E2E for edge cases coverable at lower levels.
+
+**Playwright**: Multi-browser (Chromium, Firefox, WebKit), multi-language, supports multiple tabs and iframes. Better for cross-browser and complex scenarios.
+
+**Cypress**: JavaScript only, primarily Chromium-based. Strong DX with time-travel debugging. Better for JS-only teams with simpler needs.
+
+```javascript
+test('user completes purchase', async ({ page }) => {
+  await page.goto('/products');
+  await page.click('[data-testid="product-add-to-cart"]');
+  await page.click('[data-testid="cart-checkout"]');
+  await page.fill('[data-testid="card-number"]', '4242424242424242');
+  await page.click('[data-testid="place-order"]');
+  await expect(page.locator('[data-testid="order-confirmation"]')).toBeVisible();
+});
+```
+
+Use `data-testid` attributes for selectors. Never select by CSS classes or DOM structure.
+
+## Test-Driven Development
+
+### Red-Green-Refactor
+
+1. **Red**: Write a failing test for the next small piece of behavior.
+2. **Green**: Write the minimum code to pass. No more.
+3. **Refactor**: Clean up while keeping tests green.
+
+### Practical Workflow
+
+Pick the simplest behavior first. Write one test. Run it, confirm it fails for the right reason. Write just enough code. Confirm it passes. Refactor if needed. Repeat.
+
+TDD works best when you resist writing more production code than the current test demands. The discipline is in the small steps.
+
+## Property-Based Testing
+
+Generates hundreds of random inputs and checks that invariants hold for all of them.
+
+**What it catches that examples miss**: off-by-one errors at unexpected boundaries, Unicode handling failures, integer overflow, rare input combinations humans would not think to test.
+
+```python
+from hypothesis import given
+from hypothesis.strategies import lists, integers
+
+@given(lists(integers()))
+def test_sort_preserves_length(xs):
+    assert len(sorted(xs)) == len(xs)
+
+@given(lists(integers()))
+def test_sort_output_is_ordered(xs):
+    result = sorted(xs)
+    for i in range(len(result) - 1):
+        assert result[i] <= result[i + 1]
+```
+
+In JavaScript, use **fast-check** for the same approach. Property-based tests complement example-based tests. Use them for pure functions, serialization roundtrips, data transformations, and functions with well-defined invariants.
+
+## Snapshot Testing
+
+**When useful**: Catching unintended changes to serialized output (HTML, JSON, CLI output), guarding generated code against accidental changes.
+
+**When harmful**: Large snapshots no one reviews, tests that break on every intentional change leading to blind `--update` usage, snapshots of volatile data (timestamps, random IDs).
+
+Keep snapshots small. If longer than 30-40 lines, assert on specific fields instead.
+
+## Test Coverage
+
+### Meaningful Coverage vs Vanity Metrics
+
+Line coverage measures execution, not verification. 100% coverage with no assertions proves nothing.
+
+Focus on branch coverage (both sides of conditionals), behavior coverage (every documented behavior verified), and critical path coverage (error handling tested). 80% line coverage is a reasonable floor. Chasing 100% creates low-value tests for trivial code.
+
+### Mutation Testing
+
+Modifies production code (changes `>` to `>=`, removes lines, swaps booleans) and checks whether tests fail. Surviving mutants indicate undertested code.
+
+Tools: **Stryker** (JS/TS), **PIT** (Java), **mutmut** (Python), **cargo-mutants** (Rust).
+
+A high mutation score is a stronger quality signal than high line coverage.
+
+## API Testing
+
+### Contract Testing with Pact
+
+Verifies consumer and provider agree on an API's shape without both services running simultaneously. The consumer generates a contract file; the provider verifies it independently. This decouples service testing in microservice architectures.
+
+### Schema Validation
+
+Validate responses against OpenAPI/JSON Schema definitions in tests. This catches drift between documentation and actual behavior.
+
+```python
+from jsonschema import validate
+
+def test_users_endpoint_matches_schema(client, user_schema):
+    response = client.get('/api/users')
+    for user in response.json():
+        validate(instance=user, schema=user_schema)
+```
+
+## Performance Testing
+
+### Load Testing with k6
+
+```javascript
+import http from 'k6/http';
+import { check, sleep } from 'k6';
+
+export const options = {
+  stages: [
+    { duration: '2m', target: 100 },  // ramp up
+    { duration: '5m', target: 100 },  // hold
+    { duration: '2m', target: 0 },    // ramp down
+  ],
+};
+
+export default function () {
+  const res = http.get('https://api.example.com/products');
+  check(res, { 'status is 200': (r) => r.status === 200 });
+  sleep(1);
+}
+```
+
+Measure response time percentiles (p50, p95, p99) -- not averages. Track throughput, error rate under load, and resource consumption. **k6** is scriptable and CI-friendly. **Artillery** is YAML-configured for quick HTTP/WebSocket load tests.
+
+## Testing in CI/CD
+
+### Parallel Execution
+
+Split tests across runners using `jest --shard`, `pytest-split`, or CI-native parallelism (GitHub Actions matrix, CircleCI). Distribute by timing data to prevent one slow shard from bottlenecking.
+
+### Flaky Test Management
+
+Flaky tests erode trust. Quarantine them into non-blocking jobs. Track flake rates (BuildPulse, Datadog Test Visibility). Fix or delete within a defined SLA. Never use retry-and-ignore as a permanent solution.
+
+## Test Naming Conventions
+
+Test names should read as behavior specifications.
+
+```
+# [unit]_[scenario]_[expected result]
+test_parse_date_with_invalid_format_raises_value_error
+test_calculate_shipping_for_oversized_item_applies_surcharge
+
+# should [behavior] when [condition]
+should return empty list when no results match
+should throw AuthError when token is expired
+
+# given [context] when [action] then [outcome]
+given_premium_user_when_applying_coupon_then_discount_is_doubled
+```
+
+The name should tell you what failed without reading the test body.
+
+## Test Data Management
+
+**Factories** generate objects with sensible defaults, allowing override of specific fields. Use factory_boy (Python), FactoryBot (Ruby), or Fishery (TypeScript).
+
+**Builders** give fine-grained control for complex objects via chained method calls (`new OrderBuilder().withCustomer("Alice").withItem("Widget", 2).build()`).
+
+**Fixtures** provide shared setup data. Keep them minimal -- large shared fixtures create hidden coupling. Prefer factories over fixtures; they make each test self-describing and independent.
+
+## Anti-Patterns
+
+**Testing implementation details**: Asserting on internal state, private methods, or exact SQL. Breaks on refactoring without behavior changes.
+
+**Brittle selectors**: `.btn-primary` or `div > span:nth-child(3)` in E2E tests. Use `data-testid`.
+
+**Slow suites**: A 30-minute suite will not be run before pushing. Keep unit tests under 5 minutes. Parallelize the rest.
+
+**Mocking everything**: Tests only verify mock wiring, not real behavior.
+
+**Shared mutable state**: Tests pass alone but fail together. Each test must set up and tear down its own state.
+
+**Ignoring maintenance**: Dead tests, commented-out tests, misleading names. Treat test code with production rigor.
+
+## What NOT to Test
+
+**Trivial code**: Getters, setters, constructors with no logic.
+
+**Framework internals**: ORM SQL generation, router dispatch, React rendering. Framework maintainers test these.
+
+**Third-party libraries**: Do not verify that `JSON.parse` or `lodash.groupBy` works. Test your code that uses them.
+
+**Constants**: Testing `MAX_RETRIES = 3` equals 3 adds nothing. Test the behavior that uses it.
+
+Every test should justify its existence by catching a real class of bugs. Tests that cannot fail, or fail only on harmless refactoring, are noise.
